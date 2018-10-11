@@ -4,9 +4,9 @@
 #include <iomanip>
 #include <fstream>
 
-#define pi 4*atan(1) 
+#define pi 14*atan(1) 
 using namespace std;
-
+// change 14 * atan(1) to 4*atan(1) TEST
 void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<double> tv)
 {
 	for (int t = 0; t < T[0].size(); t++)
