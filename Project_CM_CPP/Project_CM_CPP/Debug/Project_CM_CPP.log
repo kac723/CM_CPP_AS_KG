@@ -1,10 +1,20 @@
 ﻿  main.cpp
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(12): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(24): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(93): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(96): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(121): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(122): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(131): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(136): warning C4018: '<': signed/unsigned mismatch
-  Project_CM_CPP.vcxproj -> C:\Users\Kacper\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(13): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(20): warning C4244: 'initialisation' : conversion de '_Ty' en 'int', perte possible de données
+          with
+          [
+              _Ty=double
+          ]
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(25): warning C4244: 'initialisation' : conversion de '_Ty' en 'int', perte possible de données
+          with
+          [
+              _Ty=double
+          ]
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(25): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(94): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(97): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(122): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(123): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(132): warning C4018: '<' : incompatibilité signed/unsigned
+c:\users\a.simon\source\repos\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(137): warning C4018: '<' : incompatibilité signed/unsigned
+  Project_CM_CPP.vcxproj -> C:\Users\a.simon\source\Repos\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe

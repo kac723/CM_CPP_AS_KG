@@ -8,21 +8,22 @@
 using namespace std;
 // change 14 * atan(1) to 4*atan(1) TEST
 // Test push by Axel Simon 
+// other test
 void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<double> tv)
 {
 	for (int t = 0; t < T[0].size(); t++)
 	{
-		for (int x = 0; x <= 50 + 250 * t; x++)
+		for (int x = 0; x <= 50 + 250 * tv[t]; x++)
 		{
 			T[x][t] = 0;
 		}
 
-		for (int x = 50 + 250 * t; x < 110 + 250 * t; x++)
+		for (int x = 50 + 250 * tv[t]; x < 110 + 250 * tv[t]; x++)
 		{
-			T[x][t] = 100 * sin(pi*((x - 50) / (60)));
+			T[x][t] = 100 * sin(pi*((xv[x] - 50) / (60)));
 		}
 
-		for (int x = 110 + 250 * t; x < T.size(); x++)
+		for (int x = 110 + 250 * tv[t]; x < T.size(); x++)
 		{
 			T[x][t] = 0;
 		}
@@ -139,11 +140,13 @@ int main()
 		Vt[n] = Vt[n - 1] + deltaT;
 	}
 
+	cout << Vs.size() << endl;
+	cout << Vt.size() << endl;  
+
 	// use function
 	initialCondition(T, sizeSpace, sizeTime);
 	boundryCondition(T, sizeSpace, sizeTime);
-	analyticalSolution(TA, Vs, Vt);
-
-
+	analyticalSolution(T, Vs, Vt);
+	print(T, file, Vs);
 	return 0;
 }
