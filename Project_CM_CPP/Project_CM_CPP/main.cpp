@@ -32,7 +32,7 @@ void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<dou
 
 void initialCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 {
-	for (int n = 1; n < sizeN; n++)
+	for (int n = 0; n < sizeN; n++)
 	{
 		for (int i = 1; i < sizeI; i++)
 		{
@@ -42,7 +42,7 @@ void initialCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 }
 void boundryCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 {
-	for (int n = 1; n < sizeN; n++)
+	for (int n = 0; n < sizeN; n++)
 	{
 		for (int i = 1; i < sizeI; i++)
 		{
@@ -117,7 +117,10 @@ int main()
 
 	// write value in an output file who we create
 	ofstream file;
-	file.open("output.txt");
+	file.open("output1.txt");
+
+	ofstream analyticalFile;
+	file.open("analyticaalOutput.txt");
 
 	// definition of limit value
 	int sizeSpace = (L / deltaX) + 1;
@@ -140,13 +143,17 @@ int main()
 		Vt[n] = Vt[n - 1] + deltaT;
 	}
 
-	cout << Vs.size() << endl;
-	cout << Vt.size() << endl;  
+	cout << "Space Size: " << Vs.size() << endl;
+	cout << "Time Size: " << Vt.size() << endl;  
+	cout << "T Size: " << T.size() << endl;
+	cout << "T[0] Size: " << T[0].size() << endl;
 
 	// use function
 	initialCondition(T, sizeSpace, sizeTime);
 	boundryCondition(T, sizeSpace, sizeTime);
-	analyticalSolution(T, Vs, Vt);
+	//analyticalSolution(T, Vs, Vt);
+	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
+
 	print(T, file, Vs);
 	return 0;
 }
