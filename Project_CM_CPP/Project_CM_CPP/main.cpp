@@ -8,7 +8,6 @@
 using namespace std;
 // change 14 * atan(1) to 4*atan(1) TEST
 // Test push by Axel Simon 
-// other test
 void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<double> tv)
 {
 	for (int t = 0; t < T[0].size(); t++)
@@ -151,9 +150,9 @@ int main()
 	// use function
 	initialCondition(T, sizeSpace, sizeTime);
 	boundryCondition(T, sizeSpace, sizeTime);
-	//analyticalSolution(T, Vs, Vt);
-	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
-
+	// analyticalSolution(T, Vs, Vt);
+	// ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
+	// LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace);
 	print(T, file, Vs);
 	return 0;
 }
