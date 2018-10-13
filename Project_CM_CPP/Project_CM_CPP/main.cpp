@@ -4,27 +4,31 @@
 #include <iomanip>
 #include <fstream>
 
-#define pi 14*atan(1) 
+#define pi 4*atan(1) 
 using namespace std;
-// change 14 * atan(1) to 4*atan(1) TEST
-// Test push by Axel Simon 
+
 void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<double> tv)
 {
 	for (int t = 0; t < T[0].size(); t++)
 	{
-		for (int x = 0; x <= 50 + 250 * tv[t]; x++)
-		{
-			T[x][t] = 0;
-		}
+		for (int x = 0; x < T.size(); x++)
+		{	
+			if (xv[x] < 50 + 250 * tv[t])
+			{
+				T[x][t] = 0;
 
-		for (int x = 50 + 250 * tv[t]; x < 110 + 250 * tv[t]; x++)
-		{
-			T[x][t] = 100 * sin(pi*((xv[x] - 50) / (60)));
-		}
+			}
 
-		for (int x = 110 + 250 * tv[t]; x < T.size(); x++)
-		{
-			T[x][t] = 0;
+			else if ((xv[x] >= 50 + 250 * tv[t]) && (xv[x] < 110 + 250 * tv[t]))
+			{
+				T[x][t] = 100 * sin(pi*((xv[x] - 50) / (60)));
+			}
+
+			else if (xv[x] > 110 + 250 * tv[t])
+			{
+				T[x][t] = 0;
+			}
+
 		}
 	}
 }
@@ -109,8 +113,8 @@ int main()
 	cout << "#Hello world ! " << endl;
 
 	// Declaration of variable	
-	double deltaT = 0.1;
-	double deltaX = 5;
+	double deltaT = 0.1; // (For a better vue use 0.2)
+	double deltaX = 5; // (For a better vue use 25)
 	int L = 400;
 	double timeMax = 1.0;
 
@@ -118,8 +122,10 @@ int main()
 	ofstream file;
 	file.open("output1.txt");
 
+	/*  
 	ofstream analyticalFile;
 	file.open("analyticaalOutput.txt");
+	*/
 
 	// definition of limit value
 	int sizeSpace = (L / deltaX) + 1;
@@ -148,11 +154,13 @@ int main()
 	cout << "T[0] Size: " << T[0].size() << endl;
 
 	// use function
+	analyticalSolution(T, Vs, Vt);
+	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
+	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace);
+	
+	// add condition 
 	initialCondition(T, sizeSpace, sizeTime);
-	boundryCondition(T, sizeSpace, sizeTime);
-	// analyticalSolution(T, Vs, Vt);
-	// ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
-	// LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace);
+    boundryCondition(T, sizeSpace, sizeTime);
 	print(T, file, Vs);
 	return 0;
 }
