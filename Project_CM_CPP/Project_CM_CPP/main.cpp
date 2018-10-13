@@ -5,18 +5,21 @@
 #include <fstream>
 
 #define pi 4*atan(1) 
+
 using namespace std;
 
+// Test: Correct
 void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<double> tv)
 {
-	for (int t = 0; t < T[0].size(); t++)
+	int x;
+	int t;
+	for (x = 0; x < T.size(); x++)
 	{
-		for (int x = 0; x < T.size(); x++)
-		{	
+		for (t = 0; t < T[0].size(); t++)
+		{
 			if (xv[x] < 50 + 250 * tv[t])
 			{
 				T[x][t] = 0;
-
 			}
 
 			else if ((xv[x] >= 50 + 250 * tv[t]) && (xv[x] < 110 + 250 * tv[t]))
@@ -28,77 +31,96 @@ void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<dou
 			{
 				T[x][t] = 0;
 			}
-
 		}
 	}
 }
 
+// Test: Correct
 void initialCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 {
-	for (int n = 0; n < sizeN; n++)
+	int i;
+	int n;
+	for (i = 0; i < sizeI; i++)
 	{
-		for (int i = 1; i < sizeI; i++)
+		for (n = 0; n < sizeN; n++)
 		{
 			T[0][n] = 0;
 		}
 	}
 }
+
+// Test: Correct
 void boundryCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 {
-	for (int n = 0; n < sizeN; n++)
+	int i;
+	int n;
+
+	for (i = 1; i < sizeI; i++)
 	{
-		for (int i = 1; i < sizeI; i++)
+		for (n = 0 ; n < sizeN; n++)
 		{
 			T[sizeI - 1][n] = 0;
 		}
 	}
 }
 
-
+// Test: Only 0
 void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
 {
-	for (int n = 1; n < sizeN; n++)
+	int i;
+	int n;
+	for (i = 1; i < sizeI; i++)
 	{
-		for (int i = 1; i < sizeI; i++)
+		for (n = 1; n < sizeN; n++)
 		{
 			T[i][n] = (1 - (deltaT / deltaX))*T[i][n - 1] + (deltaT / deltaX)*T[i - 1][n - 1];
 		}
 	}
 }
 
+// Test: No test
 void ImplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
 {
-	for (int n = 1; n < sizeN; n++)
+	int i;
+	int n;
+	for (i = 1; i < sizeI; i++)
 	{
-		for (int i = 1; i < sizeI; i++)
+		for (n = 1; n < sizeN; n++)
 		{
 
 		}
 	}
 }
 
+// Test: Only 0
 void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int sizeN, int sizeI)
 {
-	for (int n = 1; n < sizeN; n++)
+	int i;
+	int n;
+	for (i = 1; i < sizeI - 1; i++)
 	{
-		for (int i = 1; i < sizeI - 1; i++)
+		for (n = 1; n < sizeN - 1; n++)
 		{
-			T[n][i] = 0.5*(T[n - 1][i + 1] + T[n - 1][i - 1]) - (deltaT / deltaX)*(T[n - 1][i + 1] - T[n - 1][i - 1]);
+			T[i][n] = 0.5*(T[i+1][n-1] + T[i - 1][n - 1]) - (deltaT / deltaX)*(T[i + 1][n - 1] - T[i - 1][n - 1]);
 		}
 	}
 }
 
+// Test: No test
 void ImplicitSchemeFTCS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
 {
 
 }
 
+// Test: Correct
 void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
 {
-	for (int i = 0; i < T.size(); i++)
+	int i;
+	int n;
+	for (i = 0; i < T.size(); i++)
 	{
 		out << fixed << setprecision(5) << V[i] << ", ";
-		for (int n = 0; n < T[0].size(); n++)
+		for (n = 0; n < T[0].size(); n++)
 		{
 			out << fixed << setprecision(5) << T[i][n];
 			if (n != T[0].size() - 1)
@@ -122,10 +144,10 @@ int main()
 	ofstream file;
 	file.open("output1.txt");
 
-	/*  
+	
 	ofstream analyticalFile;
-	file.open("analyticaalOutput.txt");
-	*/
+	analyticalFile.open("analyticalOutput.txt");
+	
 
 	// definition of limit value
 	int sizeSpace = (L / deltaX) + 1;
@@ -154,13 +176,17 @@ int main()
 	cout << "T[0] Size: " << T[0].size() << endl;
 
 	// use function
-	analyticalSolution(T, Vs, Vt);
+	analyticalSolution(TA, Vs, Vt);
 	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
 	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace);
 	
 	// add condition 
 	initialCondition(T, sizeSpace, sizeTime);
     boundryCondition(T, sizeSpace, sizeTime);
+
+	// print in a txt file
 	print(T, file, Vs);
+	print(TA, analyticalFile, Vs);
+
 	return 0;
 }
