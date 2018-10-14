@@ -17,17 +17,17 @@ void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<dou
 	{
 		for (t = 0; t < T[0].size(); t++)
 		{
-			if (xv[x] < 50 + 250 * tv[t])
+			if (xv[x] < (50 + 250 * tv[t]))
 			{
 				T[x][t] = 0;
 			}
 
-			else if ((xv[x] >= 50 + 250 * tv[t]) && (xv[x] < 110 + 250 * tv[t]))
+			else if ((xv[x] >= (50 + 250 * tv[t])) && (xv[x] < (110 + 250 * tv[t])))
 			{
-				T[x][t] = 100 * sin(pi*((xv[x] - 50) / (60)));
+				T[x][t] = 100 * sin(pi*((xv[x] - 50-250*tv[t]) / (60))); //note: Axel, I think you forgot to write -250*tv[t] in equation here. now it looks better IMO. please check :), note2: I've just noticed that You used formula for initial condition here, I think this was the problem
 			}
 
-			else if (xv[x] > 110 + 250 * tv[t])
+			else if (xv[x] >= ( 110 + 250 * tv[t]))
 			{
 				T[x][t] = 0;
 			}
@@ -36,15 +36,23 @@ void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<dou
 }
 
 // Test: Correct
-void initialCondition(vector<vector<double>>& T, int sizeI, int sizeN)
+//14/10: inital condition was incorrect. its sin(..). 0 is for boundry condition
+void initialCondition(vector<vector<double>>& T, vector<double> xv, int sizeI, int sizeN)
 {
 	int i;
-	int n;
 	for (i = 0; i < sizeI; i++)
 	{
-		for (n = 0; n < sizeN; n++)
+		if (xv[i] < 50)
 		{
-			T[0][n] = 0;
+			T[i][0] = 0;
+		}
+		else if ((xv[i] >= 50) && (xv[i] <= 110))
+		{
+			T[i][0] = 100 * sin(pi*((xv[i] - 50) / 60));
+		}
+		else if (xv[i] > 110)
+		{
+			T[i][0] = 0;
 		}
 	}
 }
@@ -52,20 +60,17 @@ void initialCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 // Test: Correct
 void boundryCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 {
-	int i;
 	int n;
-
-	for (i = 1; i < sizeI; i++)
-	{
-		for (n = 0 ; n < sizeN; n++)
+		for (n = 0 ; n < sizeN; n++)// we need to loop only in time (fill every point of time at points L and 0 - boundaries)
 		{
 			T[sizeI - 1][n] = 0;
+			T[0][n] = 0; //boundry conditions are at x=L and x=0.
 		}
-	}
 }
 
-// Test: Only 0
-void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
+// Test: Correct. Norms tests required for further analysis
+//14/10 we had error in equation (missing u parameter).
+void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double u)
 {
 	int i;
 	int n;
@@ -73,7 +78,7 @@ void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, d
 	{
 		for (n = 1; n < sizeN; n++)
 		{
-			T[i][n] = (1 - (deltaT / deltaX))*T[i][n - 1] + (deltaT / deltaX)*T[i - 1][n - 1];
+			T[i][n] = (1 - ((u*deltaT) / deltaX))*T[i][n - 1] + ((u*deltaT) / deltaX)*T[i - 1][n - 1];
 		}
 	}
 }
@@ -92,8 +97,9 @@ void ImplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, d
 	}
 }
 
-// Test: Only 0
-void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int sizeN, int sizeI)
+// Test: Correct. Norms tests required for further analysis
+//14/10 we had error in equation (missing u parameter).
+void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int sizeN, int sizeI, double u)
 {
 	int i;
 	int n;
@@ -101,11 +107,20 @@ void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int size
 	{
 		for (n = 1; n < sizeN - 1; n++)
 		{
-			T[i][n] = 0.5*(T[i+1][n-1] + T[i - 1][n - 1]) - (deltaT / deltaX)*(T[i + 1][n - 1] - T[i - 1][n - 1]);
+			T[i][n] = 0.5*(T[i+1][n-1] + T[i - 1][n - 1]) - ((u*deltaT) / deltaX)*(T[i + 1][n - 1] - T[i - 1][n - 1]);
 		}
 	}
 }
-
+void SubstractTables(vector<vector<double>>& T1, vector<vector<double>>& T2, vector<vector<double>>& TResult, int sizeI, int sizeN)
+{
+	for (int i = 0; i < sizeI; i++)
+	{
+		for (int n = 0; n < sizeN; n++)
+		{
+			TResult [i][n] = T2[i][n] - T1[i][n];
+		}
+	}
+}
 // Test: No test
 void ImplicitSchemeFTCS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
 {
@@ -129,16 +144,28 @@ void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
 		out << endl;
 	}
 }
-
+double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
+{
+	double result=0;
+	for (int i = 0; i < sizeI; i++)
+	{
+		for (int n = 0; n < sizeN; n++)
+		{
+			result += pow(abs(T[i][n]),2);
+		}
+	}
+	return sqrt(result);
+}
 int main()
 {
 	cout << "#Hello world ! " << endl;
 
 	// Declaration of variable	
-	double deltaT = 0.1; // (For a better vue use 0.2)
-	double deltaX = 5; // (For a better vue use 25)
+	double deltaT = 0.2; // (For a better view use 0.2)
+	double deltaX = 50; // (For a better view use 25)
 	int L = 400;
 	double timeMax = 1.0;
+	double u = 250;
 
 	// write value in an output file who we create
 	ofstream file;
@@ -156,6 +183,7 @@ int main()
 	// vecor with columns in space and raw in time (easier to plot it like that im gnuplot)	
 	vector<vector<double>> T(sizeSpace, vector<double>(sizeTime));
 	vector<vector<double>> TA(sizeSpace, vector<double>(sizeTime));
+	vector<vector<double>> TC(sizeSpace, vector<double>(sizeTime)); // Table to Compare analytical result with numerical result
 
 	vector<double> Vs(sizeSpace);
 	vector<double> Vt(sizeTime);
@@ -175,18 +203,23 @@ int main()
 	cout << "T Size: " << T.size() << endl;
 	cout << "T[0] Size: " << T[0].size() << endl;
 
+	// add condition 
+	initialCondition(T, Vs, sizeSpace, sizeTime);
+	boundryCondition(T, sizeSpace, sizeTime);
+
 	// use function
 	analyticalSolution(TA, Vs, Vt);
-	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT);
-	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace);
+	ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT,u);
+	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
 	
-	// add condition 
-	initialCondition(T, sizeSpace, sizeTime);
-    boundryCondition(T, sizeSpace, sizeTime);
-
+	//compare of results using norms after calculation
+	SubstractTables(TA, T, TC, sizeSpace, sizeTime);
 	// print in a txt file
-	print(T, file, Vs);
-	print(TA, analyticalFile, Vs);
-
+	print(T, cout, Vs);
+	cout << endl;
+	print(TA, cout, Vs);
+	cout << endl;
+	print(TC, cout, Vs);
+	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime);
 	return 0;
 }

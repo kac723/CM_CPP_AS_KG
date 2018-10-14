@@ -1,10 +1,1 @@
-﻿  main.cpp
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(16): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(18): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(120): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(123): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(153): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(154): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(163): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(168): warning C4018: '<' : incompatibilité signed/unsigned
-  Project_CM_CPP.vcxproj -> D:\Documents\a.simon\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe
+﻿LINK : fatal error LNK1104: cannot open file 'C:\Users\Kacper\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe'
