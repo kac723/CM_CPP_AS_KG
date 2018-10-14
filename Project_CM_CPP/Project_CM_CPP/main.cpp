@@ -205,14 +205,17 @@ double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
 void ThomasAlgorithm(vector<double>& a, vector<double>& b, vector<double>& c, vector<double>& x, vector<double>& d, int sizeI)
 {
 	double m = 0;
+	double newD, newB;
 	//Forward elimination phase
 	for (int i = 1; i < sizeI; i++)
 	{
 		m = a[i] / b[i - 1];
-		b[i] = b[i] - m * c[i - 1];
-		d[i] = d[i] - m * d[i - 1];
+		b[i] = b[i] - (m * c[i - 1]);
+		d[i] = d[i] - (m * d[i - 1]);
 	}
 	//Backward substitution phase
+	//first we need to calculate first x value
+	x[sizeI - 1] = d[sizeI - 1] / b[sizeI - 1];
 	for (int i = sizeI - 2; i >= 0; i--)
 	{
 		x[i] = (d[i] - c[i] * x[i + 1]) / b[i];
@@ -227,7 +230,7 @@ int main()
 	double deltaX = 50; // (For a better view use 25)
 	int L = 400;
 	double timeMax = 1.0;
-	double u = 250;
+	double u = 250.0;
 
 	// write value in an output file who we create
 	ofstream file;
@@ -282,13 +285,15 @@ int main()
 	print(TA, cout, Vs);
 	cout << endl;
 	print(TC, cout, Vs);
+
 	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime)<<endl;
 	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime)<<endl;
 	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
+	//Thomas algorithm tests
 	vector<double> aTest = { 0,-1,-1,-1 };
 	vector<double> bTest = { 2.04,2.04,2.04,2.04 };
 	vector<double> cTest = { -1,-1,-1,0 };
-	vector<double> dTest = { 40.8,0.8,0,8,200,8 };
+	vector<double> dTest = { 40.8, 0.8, 0.8, 200.8 };
 	vector<double> xTest = { 0,0,0,0 };
 	ThomasAlgorithm(aTest, bTest, cTest, xTest, dTest, 4);
 	for (int i = 0; i < 4; i++)

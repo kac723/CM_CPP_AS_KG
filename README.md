@@ -5,7 +5,7 @@ Step to do in Computational Method:
 1) Correct analytical solution : Done
 2) Test  explicit Upwind schemes and lax schemes and compare with analytical : Done
 2.5) Implement norms + test : Done
-3) Implement algorithm to solve linear sytem of equation (Thomas algorithm):
+3) Implement algorithm to solve linear sytem of equation (Thomas algorithm): Done
 4) Implicit upwind schemes :
 5) Test and compare with analytical solution :
 6) Implicit FTCS schemes :
