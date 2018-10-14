@@ -144,6 +144,48 @@ void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
 		out << endl;
 	}
 }
+double one_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
+{
+	double sum = 0;
+	double NewResult = 0;
+	double result = 0;
+	for (int n = 0; n < sizeN; n++)
+	{
+		for (int i = 0; i < sizeI; i++)
+		{
+			sum += abs(T[i][n]); //summing values from one column in loop. 
+		}
+		NewResult = sum;
+		sum = 0;
+		if (NewResult > result) //if new result is bigger then previous then we update result value
+		{
+			result = NewResult;
+		}
+
+	}
+	return result;
+}
+double uniform_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
+{
+	double sum = 0;
+	double NewResult = 0;
+	double result = 0;
+	for (int i = 0; i < sizeI; i++)
+	{
+		for (int n = 0; n < sizeN; n++)
+		{
+			sum += abs(T[i][n]); //summing values from one row in loop. 
+		}
+		NewResult = sum;
+		sum = 0;
+		if (NewResult > result) //if new result is bigger then previous then we update result value
+		{
+			result = NewResult;
+		}
+
+	}
+	return result;
+}
 double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
 {
 	double result=0;
@@ -220,6 +262,8 @@ int main()
 	print(TA, cout, Vs);
 	cout << endl;
 	print(TC, cout, Vs);
-	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime);
+	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime)<<endl;
+	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime)<<endl;
+	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
 	return 0;
 }
