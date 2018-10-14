@@ -226,15 +226,15 @@ int main()
 	cout << "#Hello world ! " << endl;
 
 	// Declaration of variable	
-	double deltaT = 0.2; // (For a better view use 0.2)
-	double deltaX = 50; // (For a better view use 25)
+	double deltaT = 0.02; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 !
+	double deltaX = 5; // (For a better view use 25)
 	int L = 400;
 	double timeMax = 1.0;
 	double u = 250.0;
 
 	// write value in an output file who we create
 	ofstream file;
-	file.open("output1.txt");
+	file.open("output.txt");
 
 	
 	ofstream analyticalFile;
@@ -276,19 +276,17 @@ int main()
 	analyticalSolution(TA, Vs, Vt);
 	ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT,u);
 	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
-	
-	//compare of results using norms after calculation
-	SubstractTables(TA, T, TC, sizeSpace, sizeTime);
-	// print in a txt file
-	print(T, cout, Vs);
-	cout << endl;
-	print(TA, cout, Vs);
-	cout << endl;
-	print(TC, cout, Vs);
 
-	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime)<<endl;
-	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime)<<endl;
+	// print in a txt file
+	print(T, file, Vs);
+	print(TA, analyticalFile, Vs);
+
+	//compare of results using norms after calculation
+	SubstractTables(TA, T, TC, sizeSpace, sizeTime); // substracting numerical result from analytical to get error rate
+	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime) << endl;
+	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime) << endl;
 	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
+
 	//Thomas algorithm tests
 	vector<double> aTest = { 0,-1,-1,-1 };
 	vector<double> bTest = { 2.04,2.04,2.04,2.04 };
@@ -301,5 +299,8 @@ int main()
 		cout << xTest[i] << ", ";
 	}
 	cout << endl;
+
+	analyticalFile.close();
+	file.close();
 	return 0;
 }
