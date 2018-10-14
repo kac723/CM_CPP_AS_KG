@@ -144,6 +144,7 @@ void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
 		out << endl;
 	}
 }
+// Test: Correct
 double one_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
 {
 	double sum = 0;
@@ -165,6 +166,7 @@ double one_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is m
 	}
 	return result;
 }
+// Test: Correct
 double uniform_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
 {
 	double sum = 0;
@@ -186,6 +188,7 @@ double uniform_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm 
 	}
 	return result;
 }
+// Test: Correct
 double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
 {
 	double result=0;
@@ -197,6 +200,23 @@ double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
 		}
 	}
 	return sqrt(result);
+}
+
+void ThomasAlgorithm(vector<double>& a, vector<double>& b, vector<double>& c, vector<double>& x, vector<double>& d, int sizeI)
+{
+	double m = 0;
+	//Forward elimination phase
+	for (int i = 1; i < sizeI; i++)
+	{
+		m = a[i] / b[i - 1];
+		b[i] = b[i] - m * c[i - 1];
+		d[i] = d[i] - m * d[i - 1];
+	}
+	//Backward substitution phase
+	for (int i = sizeI - 2; i >= 0; i--)
+	{
+		x[i] = (d[i] - c[i] * x[i + 1]) / b[i];
+	}
 }
 int main()
 {
@@ -265,5 +285,16 @@ int main()
 	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime)<<endl;
 	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime)<<endl;
 	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
+	vector<double> aTest = { 0,-1,-1,-1 };
+	vector<double> bTest = { 2.04,2.04,2.04,2.04 };
+	vector<double> cTest = { -1,-1,-1,0 };
+	vector<double> dTest = { 40.8,0.8,0,8,200,8 };
+	vector<double> xTest = { 0,0,0,0 };
+	ThomasAlgorithm(aTest, bTest, cTest, xTest, dTest, 4);
+	for (int i = 0; i < 4; i++)
+	{
+		cout << xTest[i] << ", ";
+	}
+	cout << endl;
 	return 0;
 }

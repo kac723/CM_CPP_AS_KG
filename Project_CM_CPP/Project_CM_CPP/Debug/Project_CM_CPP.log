@@ -3,8 +3,8 @@ c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main
 c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(18): warning C4018: '<': signed/unsigned mismatch
 c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(135): warning C4018: '<': signed/unsigned mismatch
 c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(138): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(222): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(223): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(233): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(238): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(242): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(243): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(253): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(258): warning C4018: '<': signed/unsigned mismatch
   Project_CM_CPP.vcxproj -> C:\Users\Kacper\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe
