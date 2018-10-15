@@ -4,7 +4,11 @@
 #include <iomanip>
 #include <fstream>
 
-#define pi 4*atan(1) 
+#include "Condition.h"
+#include "Method.h"
+#include "Norm.h"
+
+// #define pi 4*atan(1) 
 
 using namespace std;
 
@@ -36,7 +40,6 @@ void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<dou
 }
 
 // Test: Correct
-//14/10: inital condition was incorrect. its sin(..). 0 is for boundry condition
 void initialCondition(vector<vector<double>>& T, vector<double> xv, int sizeI, int sizeN)
 {
 	int i;
@@ -63,13 +66,13 @@ void boundryCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 	int n;
 		for (n = 0 ; n < sizeN; n++)// we need to loop only in time (fill every point of time at points L and 0 - boundaries)
 		{
+			//boundry conditions are at x=L and x=0.
 			T[sizeI - 1][n] = 0;
-			T[0][n] = 0; //boundry conditions are at x=L and x=0.
+			T[0][n] = 0; 
 		}
 }
 
 // Test: Correct. Norms tests required for further analysis
-//14/10 we had error in equation (missing u parameter).
 void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double u)
 {
 	int i;
@@ -144,63 +147,6 @@ void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
 		out << endl;
 	}
 }
-// Test: Correct
-double one_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
-{
-	double sum = 0;
-	double NewResult = 0;
-	double result = 0;
-	for (int n = 0; n < sizeN; n++)
-	{
-		for (int i = 0; i < sizeI; i++)
-		{
-			sum += abs(T[i][n]); //summing values from one column in loop. 
-		}
-		NewResult = sum;
-		sum = 0;
-		if (NewResult > result) //if new result is bigger then previous then we update result value
-		{
-			result = NewResult;
-		}
-
-	}
-	return result;
-}
-// Test: Correct
-double uniform_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
-{
-	double sum = 0;
-	double NewResult = 0;
-	double result = 0;
-	for (int i = 0; i < sizeI; i++)
-	{
-		for (int n = 0; n < sizeN; n++)
-		{
-			sum += abs(T[i][n]); //summing values from one row in loop. 
-		}
-		NewResult = sum;
-		sum = 0;
-		if (NewResult > result) //if new result is bigger then previous then we update result value
-		{
-			result = NewResult;
-		}
-
-	}
-	return result;
-}
-// Test: Correct
-double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
-{
-	double result=0;
-	for (int i = 0; i < sizeI; i++)
-	{
-		for (int n = 0; n < sizeN; n++)
-		{
-			result += pow(abs(T[i][n]),2);
-		}
-	}
-	return sqrt(result);
-}
 
 void ThomasAlgorithm(vector<double>& a, vector<double>& b, vector<double>& c, vector<double>& x, vector<double>& d, int sizeI)
 {
@@ -232,22 +178,25 @@ int main()
 	double timeMax = 1.0;
 	double u = 250.0;
 
+	// Declaration of classes
+	Condition theseCondition;
+	Method theseMethod;
+	Norm thisNorm;
+
 	// write value in an output file who we create
 	ofstream file;
 	file.open("output.txt");
 
-	
 	ofstream analyticalFile;
 	analyticalFile.open("analyticalOutput.txt");
 	
-
 	// definition of limit value
 	int sizeSpace = (L / deltaX) + 1;
 	int sizeTime = (timeMax / deltaT) + 1;
 
 	// vecor with columns in space and raw in time (easier to plot it like that im gnuplot)	
-	vector<vector<double>> T(sizeSpace, vector<double>(sizeTime));
-	vector<vector<double>> TA(sizeSpace, vector<double>(sizeTime));
+	vector<vector<double>> T(sizeSpace, vector<double>(sizeTime)); // Table who we want Compare
+	vector<vector<double>> TA(sizeSpace, vector<double>(sizeTime)); // Analytical table
 	vector<vector<double>> TC(sizeSpace, vector<double>(sizeTime)); // Table to Compare analytical result with numerical result
 
 	vector<double> Vs(sizeSpace);
@@ -263,11 +212,6 @@ int main()
 		Vt[n] = Vt[n - 1] + deltaT;
 	}
 
-	cout << "Space Size: " << Vs.size() << endl;
-	cout << "Time Size: " << Vt.size() << endl;  
-	cout << "T Size: " << T.size() << endl;
-	cout << "T[0] Size: " << T[0].size() << endl;
-
 	// add condition 
 	initialCondition(T, Vs, sizeSpace, sizeTime);
 	boundryCondition(T, sizeSpace, sizeTime);
@@ -282,10 +226,12 @@ int main()
 	print(TA, analyticalFile, Vs);
 
 	//compare of results using norms after calculation
+
 	SubstractTables(TA, T, TC, sizeSpace, sizeTime); // substracting numerical result from analytical to get error rate
-	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime) << endl;
-	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime) << endl;
-	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
+	
+	cout << "One norm is: " << thisNorm.one_norm(TC, sizeSpace, sizeTime) << endl;
+	cout << "Two norm is: " << thisNorm.two_norm(TC, sizeSpace, sizeTime) << endl;
+	cout << "Uniform norm is: " << thisNorm.uniform_norm(TC, sizeSpace, sizeTime) << endl;
 
 	//Thomas algorithm tests
 	vector<double> aTest = { 0,-1,-1,-1 };
