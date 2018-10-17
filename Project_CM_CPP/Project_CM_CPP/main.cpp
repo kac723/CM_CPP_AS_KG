@@ -83,20 +83,6 @@ void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, d
 	}
 }
 
-// Test: No test
-void ImplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
-{
-	int i;
-	int n;
-	for (i = 1; i < sizeI; i++)
-	{
-		for (n = 1; n < sizeN; n++)
-		{
-
-		}
-	}
-}
-
 // Test: Correct. Norms tests required for further analysis
 //14/10 we had error in equation (missing u parameter).
 void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int sizeN, int sizeI, double u)
@@ -120,11 +106,6 @@ void SubstractTables(vector<vector<double>>& T1, vector<vector<double>>& T2, vec
 			TResult [i][n] = T2[i][n] - T1[i][n];
 		}
 	}
-}
-// Test: No test
-void ImplicitSchemeFTCS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT)
-{
-
 }
 
 // Test: Correct
@@ -202,7 +183,8 @@ double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
 	return sqrt(result);
 }
 
-void ThomasAlgorithm(vector<double>& a, vector<double>& b, vector<double>& c, vector<double>& x, vector<double>& d, int sizeI)
+//Test: Correct
+void ThomasAlgorithm(vector<double> a, vector<double> b, vector<double> c, vector<double>& x, vector<double> d, int sizeI)
 {
 	double m = 0;
 	double newD, newB;
@@ -221,16 +203,66 @@ void ThomasAlgorithm(vector<double>& a, vector<double>& b, vector<double>& c, ve
 		x[i] = (d[i] - c[i] * x[i + 1]) / b[i];
 	}
 }
+
+// Test: In progress. Plots make sense, but when time increases accuracy of result dicrese significantly. This is beta version. Requires better coding style
+void ImplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
+{
+	vector<double> aTest(sizeI, -a);
+	vector<double> bTest(sizeI, 1 + a); //this creates vector of sizeSpace values. all equal to 1+a
+	vector<double> cTest(sizeI, 0);
+	vector<double> dTest(sizeI);
+	vector<double> zeros(sizeI, 0);
+	vector<double> xVector(sizeI, 0);
+	for (int n = 1; n < sizeN; n++)
+	{
+		for (int i = 0; i < sizeI; i++)
+		{
+			dTest[i] = T[i][n - 1];
+		}
+		ThomasAlgorithm(aTest, bTest, cTest, xVector, dTest, sizeI); //I think we should operate in space dimension from 1st element to Ith-1. not from 0th to nth. I need to verify that
+		for (int i = 0; i < sizeI; i++)
+		{
+			T[i][n] = xVector[i];
+		}
+		xVector = zeros;
+	}
+
+}
+
+// Test: In progress. Makes sense but only for very small deltaT .e.g 0.001. I will look further into it
+void ImplicitSchemeFTCS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
+{
+	vector<double> aTest(sizeI, -a/2);
+	vector<double> bTest(sizeI, 1); //this creates vector of sizeSpace values. all equal to 1+a
+	vector<double> cTest(sizeI, a/2);
+	vector<double> dTest(sizeI);
+	vector<double> zeros(sizeI, 0);
+	vector<double> xVector(sizeI, 0);
+	for (int n = 1; n < sizeN; n++)
+	{
+		for (int i = 0; i < sizeI; i++)
+		{
+			dTest[i] = T[i][n - 1];
+		}
+		ThomasAlgorithm(aTest, bTest, cTest, xVector, dTest, sizeI); //I think we should operate in space dimension from 1st element to Ith-1. not from 0th to nth. I need to verify that
+		for (int i = 0; i < sizeI; i++)
+		{
+			T[i][n] = xVector[i];
+		}
+		xVector = zeros;
+	}
+
+}
 int main()
 {
-	cout << "#Hello world ! " << endl;
-
 	// Declaration of variable	
-	double deltaT = 0.02; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 !
-	double deltaX = 5; // (For a better view use 25)
+	double deltaT = 0.02; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 for explicit schemes
+	double deltaX = 3; // (For a better view use 25)
 	int L = 400;
 	double timeMax = 1.0;
 	double u = 250.0;
+	double a = u * (deltaT / deltaX);
+
 
 	// write value in an output file who we create
 	ofstream file;
@@ -274,8 +306,10 @@ int main()
 
 	// use function
 	analyticalSolution(TA, Vs, Vt);
-	ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT,u);
+	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT,u);
 	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
+	//ImplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT, a);
+	ImplicitSchemeFTCS(T, sizeSpace, sizeTime, deltaX, deltaT, a);
 
 	// print in a txt file
 	print(T, file, Vs);
@@ -286,20 +320,7 @@ int main()
 	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime) << endl;
 	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime) << endl;
 	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
-
-	//Thomas algorithm tests
-	vector<double> aTest = { 0,-1,-1,-1 };
-	vector<double> bTest = { 2.04,2.04,2.04,2.04 };
-	vector<double> cTest = { -1,-1,-1,0 };
-	vector<double> dTest = { 40.8, 0.8, 0.8, 200.8 };
-	vector<double> xTest = { 0,0,0,0 };
-	ThomasAlgorithm(aTest, bTest, cTest, xTest, dTest, 4);
-	for (int i = 0; i < 4; i++)
-	{
-		cout << xTest[i] << ", ";
-	}
-	cout << endl;
-
+	
 	analyticalFile.close();
 	file.close();
 	return 0;
