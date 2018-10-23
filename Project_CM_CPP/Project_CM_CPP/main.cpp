@@ -3,19 +3,20 @@
 #include <math.h>
 #include <iomanip>
 #include <fstream>
+#include "Matrix.h"
 
 #define pi 4*atan(1) 
 
 using namespace std;
 
 // Test: Correct
-void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<double> tv)
+void analyticalSolution(Matrix& T, vector<double> xv, vector<double> tv)
 {
 	int x;
 	int t;
-	for (x = 0; x < T.size(); x++)
+	for (x = 0; x < T.getCols(); x++)
 	{
-		for (t = 0; t < T[0].size(); t++)
+		for (t = 0; t < T.getRows(); t++)
 		{
 			if (xv[x] < (50 + 250 * tv[t]))
 			{
@@ -37,7 +38,7 @@ void analyticalSolution(vector<vector<double>>& T, vector<double> xv, vector<dou
 
 // Test: Correct
 //14/10: inital condition was incorrect. its sin(..). 0 is for boundry condition
-void initialCondition(vector<vector<double>>& T, vector<double> xv, int sizeI, int sizeN)
+void initialCondition(Matrix& T, vector<double> xv, int sizeI, int sizeN)
 {
 	int i;
 	for (i = 0; i < sizeI; i++)
@@ -58,7 +59,7 @@ void initialCondition(vector<vector<double>>& T, vector<double> xv, int sizeI, i
 }
 
 // Test: Correct
-void boundryCondition(vector<vector<double>>& T, int sizeI, int sizeN)
+void boundryCondition(Matrix& T, int sizeI, int sizeN)
 {
 	int n;
 		for (n = 0 ; n < sizeN; n++)// we need to loop only in time (fill every point of time at points L and 0 - boundaries)
@@ -70,7 +71,7 @@ void boundryCondition(vector<vector<double>>& T, int sizeI, int sizeN)
 
 // Test: Correct. Norms tests required for further analysis
 //14/10 we had error in equation (missing u parameter).
-void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double u)
+void ExplicitUpWindSchemeFTBS(Matrix& T, int sizeI, int sizeN, double deltaX, double deltaT, double u)
 {
 	int i;
 	int n;
@@ -85,7 +86,7 @@ void ExplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, d
 
 // Test: Correct. Norms tests required for further analysis
 //14/10 we had error in equation (missing u parameter).
-void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int sizeN, int sizeI, double u)
+void LaxScheme(double deltaX, double deltaT, Matrix& T, int sizeN, int sizeI, double u)
 {
 	int i;
 	int n;
@@ -97,6 +98,7 @@ void LaxScheme(double deltaX, double deltaT, vector<vector<double>>& T, int size
 		}
 	}
 }
+
 void SubstractTables(vector<vector<double>>& T1, vector<vector<double>>& T2, vector<vector<double>>& TResult, int sizeI, int sizeN)
 {
 	for (int i = 0; i < sizeI; i++)
@@ -107,16 +109,15 @@ void SubstractTables(vector<vector<double>>& T1, vector<vector<double>>& T2, vec
 		}
 	}
 }
-
 // Test: Correct
-void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
+void print(Matrix& T, ostream& out, vector<double>& V)
 {
 	int i;
 	int n;
-	for (i = 0; i < T.size(); i++)
+	for (i = 0; i < T.getCols(); i++)
 	{
 		out << fixed << setprecision(5) << V[i] << ", ";
-		for (n = 0; n < T[0].size(); n++)
+		for (n = 0; n < T.getRows(); n++)
 		{
 			out << fixed << setprecision(5) << T[i][n];
 			if (n != T[0].size() - 1)
@@ -125,64 +126,6 @@ void print(vector<vector<double>>& T, ostream& out, vector<double>& V)
 		out << endl;
 	}
 }
-// Test: Correct
-double one_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
-{
-	double sum = 0;
-	double NewResult = 0;
-	double result = 0;
-	for (int n = 0; n < sizeN; n++)
-	{
-		for (int i = 0; i < sizeI; i++)
-		{
-			sum += abs(T[i][n]); //summing values from one column in loop. 
-		}
-		NewResult = sum;
-		sum = 0;
-		if (NewResult > result) //if new result is bigger then previous then we update result value
-		{
-			result = NewResult;
-		}
-
-	}
-	return result;
-}
-// Test: Correct
-double uniform_norm(vector<vector<double>>& T, int sizeI, int sizeN) //one norm is maximum of sum of columns
-{
-	double sum = 0;
-	double NewResult = 0;
-	double result = 0;
-	for (int i = 0; i < sizeI; i++)
-	{
-		for (int n = 0; n < sizeN; n++)
-		{
-			sum += abs(T[i][n]); //summing values from one row in loop. 
-		}
-		NewResult = sum;
-		sum = 0;
-		if (NewResult > result) //if new result is bigger then previous then we update result value
-		{
-			result = NewResult;
-		}
-
-	}
-	return result;
-}
-// Test: Correct
-double two_norm(vector<vector<double>>& T, int sizeI,int sizeN)
-{
-	double result=0;
-	for (int i = 0; i < sizeI; i++)
-	{
-		for (int n = 0; n < sizeN; n++)
-		{
-			result += pow(abs(T[i][n]),2);
-		}
-	}
-	return sqrt(result);
-}
-
 //Test: Correct
 void ThomasAlgorithm(vector<double> a, vector<double> b, vector<double> c, vector<double>& x, vector<double> d, int sizeI)
 {
@@ -205,7 +148,7 @@ void ThomasAlgorithm(vector<double> a, vector<double> b, vector<double> c, vecto
 }
 
 // Test: In progress. Plots make sense, but when time increases accuracy of result dicrese significantly. This is beta version. Requires better coding style
-void ImplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
+void ImplicitUpWindSchemeFTBS(Matrix& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
 {
 	vector<double> aTest(sizeI, -a);
 	vector<double> bTest(sizeI, 1 + a); //this creates vector of sizeSpace values. all equal to 1+a
@@ -230,7 +173,7 @@ void ImplicitUpWindSchemeFTBS(vector<vector<double>>& T, int sizeI, int sizeN, d
 }
 
 // Test: In progress. Makes sense but only for very small deltaT .e.g 0.001. I will look further into it
-void ImplicitSchemeFTCS(vector<vector<double>>& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
+void ImplicitSchemeFTCS(Matrix& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
 {
 	vector<double> aTest(sizeI, -a/2);
 	vector<double> bTest(sizeI, 1); //this creates vector of sizeSpace values. all equal to 1+a
@@ -256,8 +199,8 @@ void ImplicitSchemeFTCS(vector<vector<double>>& T, int sizeI, int sizeN, double 
 int main()
 {
 	// Declaration of variable	
-	double deltaT = 0.02; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 for explicit schemes
-	double deltaX = 3; // (For a better view use 25)
+	double deltaT = 0.1; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 for explicit schemes
+	double deltaX = 30; // (For a better view use 25)
 	int L = 400;
 	double timeMax = 1.0;
 	double u = 250.0;
@@ -277,10 +220,8 @@ int main()
 	int sizeSpace = (L / deltaX) + 1;
 	int sizeTime = (timeMax / deltaT) + 1;
 
-	// vecor with columns in space and raw in time (easier to plot it like that im gnuplot)	
-	vector<vector<double>> T(sizeSpace, vector<double>(sizeTime));
-	vector<vector<double>> TA(sizeSpace, vector<double>(sizeTime));
-	vector<vector<double>> TC(sizeSpace, vector<double>(sizeTime)); // Table to Compare analytical result with numerical result
+	Matrix mTest(sizeSpace, sizeTime);
+	Matrix mTestAna(sizeSpace, sizeTime);
 
 	vector<double> Vs(sizeSpace);
 	vector<double> Vt(sizeTime);
@@ -297,30 +238,29 @@ int main()
 
 	cout << "Space Size: " << Vs.size() << endl;
 	cout << "Time Size: " << Vt.size() << endl;  
-	cout << "T Size: " << T.size() << endl;
-	cout << "T[0] Size: " << T[0].size() << endl;
+	cout << "T Size: " << mTest.getCols() << endl;
+	cout << "T[0] Size: " << mTest.getRows() << endl;
 
 	// add condition 
-	initialCondition(T, Vs, sizeSpace, sizeTime);
-	boundryCondition(T, sizeSpace, sizeTime);
+	initialCondition(mTest, Vs, sizeSpace, sizeTime);
+	boundryCondition(mTest, sizeSpace, sizeTime);
 
 	// use function
-	analyticalSolution(TA, Vs, Vt);
-	//ExplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT,u);
-	//LaxScheme(deltaX, deltaT,T,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
-	//ImplicitUpWindSchemeFTBS(T, sizeSpace, sizeTime, deltaX, deltaT, a);
-	ImplicitSchemeFTCS(T, sizeSpace, sizeTime, deltaX, deltaT, a);
+	analyticalSolution(mTestAna, Vs, Vt);
+	ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
+	//LaxScheme(deltaX, deltaT,mTest,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
+	//ImplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
+	//ImplicitSchemeFTCS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
 
 	// print in a txt file
-	print(T, file, Vs);
-	print(TA, analyticalFile, Vs);
-
-	//compare of results using norms after calculation
-	SubstractTables(TA, T, TC, sizeSpace, sizeTime); // substracting numerical result from analytical to get error rate
-	cout << "One norm is: " << one_norm(TC, sizeSpace, sizeTime) << endl;
-	cout << "Two norm is: " << two_norm(TC, sizeSpace, sizeTime) << endl;
-	cout << "Uniform norm is: " << uniform_norm(TC, sizeSpace, sizeTime) << endl;
+	print(mTest, cout, Vs);
+	print(mTestAna, cout, Vs);
 	
+	Matrix norms(mTest-mTestAna);
+	print(norms, cout, Vs);
+	cout << norms.oneNorm()<<endl;
+	cout << norms.twoNorm() << endl;
+	cout << norms.uniformNorm() << endl;
 	analyticalFile.close();
 	file.close();
 	return 0;

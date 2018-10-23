@@ -1,12 +1,12 @@
-﻿  main.cpp
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(16): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(18): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(116): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(119): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(190): warning C4101: 'newB': unreferenced local variable
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(190): warning C4101: 'newD': unreferenced local variable
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(279): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(280): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(290): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(295): warning C4018: '<': signed/unsigned mismatch
+﻿  Matrix.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\matrix.cpp(45): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\matrix.cpp(47): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(133): warning C4101: 'newB': unreferenced local variable
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(133): warning C4101: 'newD': unreferenced local variable
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(220): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(221): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(229): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(234): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Project_CM_CPP.vcxproj -> C:\Users\Kacper\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe
