@@ -7,6 +7,9 @@
 #include "ThomasAlgorithm.h"
 #include "Scheme.h"
 #include "ExplicitUpwind.h"
+#include "ExplicitLax.h"
+#include "ImplicitUpwind.h"
+#include "ImplicitFTCS.h"
 
 #define pi 4*atan(1) 
 
@@ -197,8 +200,8 @@ void ImplicitSchemeFTCS(Matrix& T, int sizeI, int sizeN, double deltaX, double d
 int main()
 {
 	// Declaration of variable	
-	double deltaT = 0.1; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 for explicit schemes
-	double deltaX = 30; // (For a better view use 25)
+	double deltaT = 0.2; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 for explicit schemes
+	double deltaX = 5; // (For a better view use 25)
 	int L = 400;
 	double timeMax = 0.6;
 	double u = 250.0;
@@ -234,40 +237,29 @@ int main()
 		Vt[n] = Vt[n - 1] + deltaT;
 	}
 
-	cout << "Space Size: " << Vs.size() << endl;
-	cout << "Time Size: " << Vt.size() << endl;  
-	cout << "T Size: " << mTest.getCols() << endl;
-	cout << "T[0] Size: " << mTest.getRows() << endl;
-
 	// add condition 
 	initialCondition(mTest, Vs, sizeSpace, sizeTime);
 	boundryCondition(mTest, sizeSpace, sizeTime);
 
 	// use function
 	analyticalSolution(mTestAna, Vs, Vt);
-	ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
+	//ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
 	//LaxScheme(deltaX, deltaT,mTest,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
 	//ImplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
-	//ImplicitSchemeFTCS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
+	ImplicitSchemeFTCS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
 
 	// print in a txt file
 	print(mTest, cout, Vs);
 	//print(mTestAna, cout, Vs);
 	
-	ExplicitUpwind explicitTest(0.1, 30);
-	Scheme* aP=new ExplicitUpwind(0.1,30);
-	explicitTest.initialAndBoundry();
-	print(explicitTest.getNumerical(), cout, Vs);
+	Scheme* aP = new ImplicitFTCS(deltaT, deltaX);
 
-	explicitTest.calculateNumericalSolution();
-	
-	print(explicitTest.getNumerical(), cout, Vs);
+	aP->initialAndBoundry();
 
-	Matrix norms(mTest-mTestAna);
-	print(norms, cout, Vs);
-	cout << norms.oneNorm()<<endl;
-	cout << norms.twoNorm() << endl;
-	cout << norms.uniformNorm() << endl;
+	aP->calculateNumericalSolution();
+
+	print(aP->getNumerical(), cout, Vs);
+
 	analyticalFile.close();
 	file.close();
 	return 0;

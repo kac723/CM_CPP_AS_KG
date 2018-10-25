@@ -28,7 +28,7 @@ Scheme::Scheme(double dt, double dx)
 	}
 }
 
-Scheme::Scheme():Scheme(0.1,10) {}
+Scheme::Scheme() {}
 
 void Scheme::initialAndBoundry()
 {
@@ -142,4 +142,9 @@ double Scheme::getDeltaT()
 double Scheme::getDeltaX()
 {
 	return deltaX;
+}
+
+double Scheme::getA()
+{
+	return u * deltaT / deltaX;
 }

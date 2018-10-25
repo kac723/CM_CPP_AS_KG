@@ -1,8 +1,30 @@
-﻿  main.cpp
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(136): warning C4101: 'newB': unreferenced local variable
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(136): warning C4101: 'newD': unreferenced local variable
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(218): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(219): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(227): warning C4018: '<': signed/unsigned mismatch
-c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(232): warning C4018: '<': signed/unsigned mismatch
+﻿  ExplicitLax.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicitlax.cpp(12): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicitlax.cpp(14): warning C4018: '<': signed/unsigned mismatch
+  ExplicitUpwind.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicitupwind.cpp(8): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicitupwind.cpp(10): warning C4018: '<': signed/unsigned mismatch
+  ImplicitFTCS.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicitftcs.cpp(9): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicitftcs.cpp(11): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicitftcs.cpp(17): warning C4018: '<': signed/unsigned mismatch
+  ImplicitUpwind.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicitupwind.cpp(9): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicitupwind.cpp(11): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicitupwind.cpp(17): warning C4018: '<': signed/unsigned mismatch
+  Scheme.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(36): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(102): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(139): warning C4101: 'newB': unreferenced local variable
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(139): warning C4101: 'newD': unreferenced local variable
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(221): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(222): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(230): warning C4018: '<': signed/unsigned mismatch
+c:\users\kacper\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(235): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Project_CM_CPP.vcxproj -> C:\Users\Kacper\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe

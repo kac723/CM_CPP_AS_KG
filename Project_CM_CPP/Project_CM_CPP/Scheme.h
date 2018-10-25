@@ -25,6 +25,7 @@ class Scheme
 		double getU();
 		double getDeltaT();
 		double getDeltaX();
+		double getA();
 		Matrix& getNumerical();
 		void setNumerical(Matrix newNumerical);
 		void initialAndBoundry();

@@ -30,6 +30,15 @@
     <ClCompile Include="ExplicitUpwind.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExplicitLax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitUpwind.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitFTCS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
@@ -44,7 +53,13 @@
     <ClInclude Include="ExplicitUpwind.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="ExplicitLax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImplicitUpwind.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImplicitFTCS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
