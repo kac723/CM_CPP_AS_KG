@@ -33,5 +33,5 @@ class Scheme
 		std::vector<double>& getInitial();
 		std::vector<double>& getLeftBoundry();
 		std::vector<double>& getRightBoundry();
-		virtual void calculateNumericalSolution() = 0; // add const = 0  at the end ?
+		virtual void calculateNumericalSolution()=0; // add const = 0  at the end ?
 };

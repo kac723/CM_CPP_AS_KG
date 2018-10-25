@@ -28,10 +28,7 @@ Scheme::Scheme(double dt, double dx)
 	}
 }
 
-Scheme::Scheme()
-{
-	Scheme(1, 1);
-}
+Scheme::Scheme():Scheme(0.1,10) {}
 
 void Scheme::initialAndBoundry()
 {
@@ -40,6 +37,9 @@ void Scheme::initialAndBoundry()
 	{
 		rightBoundryCondition[n] = 0;
 		leftBoundryCondition[n] = 0; //boundry conditions are at x=L and x=0.
+
+		this->NumericalResult[0][n] = 0;
+		this->NumericalResult[this->getVectorX().size()-1][n] = 0;
 	}
 
 	int i;
@@ -48,13 +48,16 @@ void Scheme::initialAndBoundry()
 		if (xVector[i] < 50)
 		{
 			initialCondition[i] = 0;
+			this->NumericalResult[i][0] = 0;
 		}
 		else if ((xVector[i] >= 50) && (xVector[i] <= 110))
 		{
 			initialCondition[i] = 100 * sin(pi*((xVector[i] - 50) / 60));
+			this->NumericalResult[i][0] = 100 * sin(pi*((xVector[i] - 50) / 60));
 		}
 		else if (xVector[i] > 110)
 		{
+			this->NumericalResult[i][0] = 0;
 			initialCondition[i] = 0;
 		}
 	}

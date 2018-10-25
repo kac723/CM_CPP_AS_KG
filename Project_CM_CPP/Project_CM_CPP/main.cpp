@@ -245,22 +245,24 @@ int main()
 
 	// use function
 	analyticalSolution(mTestAna, Vs, Vt);
-	//ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
+	ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
 	//LaxScheme(deltaX, deltaT,mTest,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
-	ImplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
+	//ImplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
 	//ImplicitSchemeFTCS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
 
 	// print in a txt file
-	Scheme sTest(deltaT, deltaX);
-	sTest.calculateAnalyticalResult();
-
-	sTest.initialAndBoundry();
-
-	sTest.setNumerical(sTest.getAnalytical());
-	print(sTest.getNumerical(),cout,Vs);
 	print(mTest, cout, Vs);
-	print(mTestAna, cout, Vs);
+	//print(mTestAna, cout, Vs);
 	
+	ExplicitUpwind explicitTest(0.1, 30);
+	Scheme* aP=new ExplicitUpwind(0.1,30);
+	explicitTest.initialAndBoundry();
+	print(explicitTest.getNumerical(), cout, Vs);
+
+	explicitTest.calculateNumericalSolution();
+	
+	print(explicitTest.getNumerical(), cout, Vs);
+
 	Matrix norms(mTest-mTestAna);
 	print(norms, cout, Vs);
 	cout << norms.oneNorm()<<endl;
