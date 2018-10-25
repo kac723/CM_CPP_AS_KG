@@ -2,7 +2,7 @@
 
 Matrix::Matrix()
 {
-	//
+	(*this).resize(1);
 }
 
 Matrix::Matrix(int N)

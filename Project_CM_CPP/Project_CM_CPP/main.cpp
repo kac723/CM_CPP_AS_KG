@@ -4,6 +4,9 @@
 #include <iomanip>
 #include <fstream>
 #include "Matrix.h"
+#include "ThomasAlgorithm.h"
+#include "Scheme.h"
+#include "ExplicitUpwind.h"
 
 #define pi 4*atan(1) 
 
@@ -127,7 +130,7 @@ void print(Matrix& T, ostream& out, vector<double>& V)
 	}
 }
 //Test: Correct
-void ThomasAlgorithm(vector<double> a, vector<double> b, vector<double> c, vector<double>& x, vector<double> d, int sizeI)
+void ThomasAlgorithmFunc(vector<double> a, vector<double> b, vector<double> c, vector<double>& x, vector<double> d, int sizeI)
 {
 	double m = 0;
 	double newD, newB;
@@ -150,24 +153,19 @@ void ThomasAlgorithm(vector<double> a, vector<double> b, vector<double> c, vecto
 // Test: In progress. Plots make sense, but when time increases accuracy of result dicrese significantly. This is beta version. Requires better coding style
 void ImplicitUpWindSchemeFTBS(Matrix& T, int sizeI, int sizeN, double deltaX, double deltaT, double a)
 {
-	vector<double> aTest(sizeI, -a);
-	vector<double> bTest(sizeI, 1 + a); //this creates vector of sizeSpace values. all equal to 1+a
-	vector<double> cTest(sizeI, 0);
 	vector<double> dTest(sizeI);
-	vector<double> zeros(sizeI, 0);
-	vector<double> xVector(sizeI, 0);
 	for (int n = 1; n < sizeN; n++)
 	{
 		for (int i = 0; i < sizeI; i++)
 		{
 			dTest[i] = T[i][n - 1];
 		}
-		ThomasAlgorithm(aTest, bTest, cTest, xVector, dTest, sizeI); //I think we should operate in space dimension from 1st element to Ith-1. not from 0th to nth. I need to verify that
+		ThomasAlgorithm Ta(-a, 1 + a, 0, dTest, sizeI);
+		Ta.solve();
 		for (int i = 0; i < sizeI; i++)
 		{
-			T[i][n] = xVector[i];
+			T[i][n] = Ta.getX()[i];
 		}
-		xVector = zeros;
 	}
 
 }
@@ -187,7 +185,7 @@ void ImplicitSchemeFTCS(Matrix& T, int sizeI, int sizeN, double deltaX, double d
 		{
 			dTest[i] = T[i][n - 1];
 		}
-		ThomasAlgorithm(aTest, bTest, cTest, xVector, dTest, sizeI); //I think we should operate in space dimension from 1st element to Ith-1. not from 0th to nth. I need to verify that
+		ThomasAlgorithmFunc(aTest, bTest, cTest, xVector, dTest, sizeI); //I think we should operate in space dimension from 1st element to Ith-1. not from 0th to nth. I need to verify that
 		for (int i = 0; i < sizeI; i++)
 		{
 			T[i][n] = xVector[i];
@@ -202,7 +200,7 @@ int main()
 	double deltaT = 0.1; // (For a better view use 0.2) REMEMBER: u*deltaT/deltaX must be less then 1 for explicit schemes
 	double deltaX = 30; // (For a better view use 25)
 	int L = 400;
-	double timeMax = 1.0;
+	double timeMax = 0.6;
 	double u = 250.0;
 	double a = u * (deltaT / deltaX);
 
@@ -247,12 +245,19 @@ int main()
 
 	// use function
 	analyticalSolution(mTestAna, Vs, Vt);
-	ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
+	//ExplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT,u);
 	//LaxScheme(deltaX, deltaT,mTest,sizeTime,sizeSpace,u); // Lax Scheme is unstable always so we won't get good results. (as can be seen on plots)
-	//ImplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
+	ImplicitUpWindSchemeFTBS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
 	//ImplicitSchemeFTCS(mTest, sizeSpace, sizeTime, deltaX, deltaT, a);
 
 	// print in a txt file
+	Scheme sTest(deltaT, deltaX);
+	sTest.calculateAnalyticalResult();
+
+	sTest.initialAndBoundry();
+
+	sTest.setNumerical(sTest.getAnalytical());
+	print(sTest.getNumerical(),cout,Vs);
 	print(mTest, cout, Vs);
 	print(mTestAna, cout, Vs);
 	
