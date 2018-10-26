@@ -12,27 +12,20 @@ class Scheme
 		const double timeMax = 0.6;
 		std::vector<double> xVector;
 		std::vector<double> tVector;
-		std::vector<double> initialCondition;
-		std::vector<double> leftBoundryCondition;
-		std::vector<double> rightBoundryCondition;
 		Matrix NumericalResult;
 		Matrix AnalyticalResult;
+		std::vector<double> norms;
 	public:
-		void calculateAnalyticalResult();
 		Scheme();
-		Scheme(double dt,double dx);
+		Scheme(double dt, double dx);
+		void calculateAnalyticalResult();
 		Matrix& getAnalytical();
-		double getU();
-		double getDeltaT();
-		double getDeltaX();
 		double getA();
 		Matrix& getNumerical();
 		void setNumerical(Matrix newNumerical);
 		void initialAndBoundry();
 		std::vector<double>& getVectorX();
 		std::vector<double>& getVectorT();
-		std::vector<double>& getInitial();
-		std::vector<double>& getLeftBoundry();
-		std::vector<double>& getRightBoundry();
+		void calculateNorms();
 		virtual void calculateNumericalSolution()=0; // add const = 0  at the end ?
 };

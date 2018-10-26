@@ -17,4 +17,7 @@ void ExplicitLax::calculateNumericalSolution()
 
 ExplicitLax::ExplicitLax() {} // this must be initialization list
 
-ExplicitLax::ExplicitLax(double dT, double dx) : Scheme(dT, dx) {}
+ExplicitLax::ExplicitLax(double dT, double dx) : Scheme(dT, dx)
+{
+	this->calculateNumericalSolution();
+}

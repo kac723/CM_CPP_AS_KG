@@ -11,10 +11,8 @@ Scheme::Scheme(double dt, double dx)
 	int sizeX = 1 + (this->L) / dx;
 	int sizeT = 1 + (this->timeMax) / dt;
 	this->AnalyticalResult=Matrix(sizeX, sizeT);
-	this->initialCondition.resize(sizeX);
-	this->leftBoundryCondition.resize(sizeT);
-	this->rightBoundryCondition.resize(sizeT);
 	this->NumericalResult=Matrix(sizeX, sizeT);
+	this->norms.resize(3);
 	this->xVector.resize(sizeX);
 	this->tVector.resize(sizeT);
 	for (int i = 1; i < sizeX; i++)
@@ -26,6 +24,8 @@ Scheme::Scheme(double dt, double dx)
 	{
 		this->tVector[n] = this->tVector[n - 1] + dt;
 	}
+	this->calculateAnalyticalResult();
+	this->initialAndBoundry();
 }
 
 Scheme::Scheme() {}
@@ -33,39 +33,29 @@ Scheme::Scheme() {}
 void Scheme::initialAndBoundry()
 {
 	int n;
-	for (n = 0; n < leftBoundryCondition.size(); n++)// we need to loop only in time (fill every point of time at points L and 0 - boundaries)
+	for (n = 0; n < this->getVectorT().size(); n++)// we need to loop only in time (fill every point of time at points L and 0 - boundaries)
 	{
-		rightBoundryCondition[n] = 0;
-		leftBoundryCondition[n] = 0; //boundry conditions are at x=L and x=0.
 
 		this->NumericalResult[0][n] = 0;
 		this->NumericalResult[this->getVectorX().size()-1][n] = 0;
 	}
 
 	int i;
-	for (i = 0; i < initialCondition.size(); i++)
+	for (i = 0; i < this->getVectorX().size(); i++)
 	{
 		if (xVector[i] < 50)
 		{
-			initialCondition[i] = 0;
 			this->NumericalResult[i][0] = 0;
 		}
 		else if ((xVector[i] >= 50) && (xVector[i] <= 110))
 		{
-			initialCondition[i] = 100 * sin(pi*((xVector[i] - 50) / 60));
 			this->NumericalResult[i][0] = 100 * sin(pi*((xVector[i] - 50) / 60));
 		}
 		else if (xVector[i] > 110)
 		{
 			this->NumericalResult[i][0] = 0;
-			initialCondition[i] = 0;
 		}
 	}
-}
-
-double Scheme::getU()
-{
-	return u;
 }
 
 vector<double>& Scheme::getVectorX()
@@ -76,21 +66,6 @@ vector<double>& Scheme::getVectorX()
 vector<double>& Scheme::getVectorT()
 {
 	return tVector;
-}
-
-std::vector<double>& Scheme::getInitial()
-{
-	return initialCondition;
-}
-
-std::vector<double>& Scheme::getLeftBoundry()
-{
-	return leftBoundryCondition;
-}
-
-std::vector<double>& Scheme::getRightBoundry()
-{
-	return rightBoundryCondition;
 }
 
 void Scheme::calculateAnalyticalResult()
@@ -134,17 +109,15 @@ void Scheme::setNumerical(Matrix newNumerical)
 	this->NumericalResult=Matrix(newNumerical);
 }
 
-double Scheme::getDeltaT()
-{
-	return deltaT;
-}
-
-double Scheme::getDeltaX()
-{
-	return deltaX;
-}
-
 double Scheme::getA()
 {
 	return u * deltaT / deltaX;
+}
+
+void Scheme::calculateNorms()
+{
+	Matrix normMatrix((this->getNumerical()-this->getAnalytical()));
+	norms[0] = normMatrix.oneNorm();
+	norms[1] = normMatrix.twoNorm();
+	norms[2] = normMatrix.uniformNorm();
 }

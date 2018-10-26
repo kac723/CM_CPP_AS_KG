@@ -17,4 +17,7 @@ void ExplicitUpwind::calculateNumericalSolution()
 
 ExplicitUpwind::ExplicitUpwind() {} // this must be initialization list
 
-ExplicitUpwind::ExplicitUpwind(double dT, double dx) : Scheme(dT,dx) {}
+ExplicitUpwind::ExplicitUpwind(double dT, double dx) : Scheme(dT,dx)
+{
+	this->calculateNumericalSolution();
+}

@@ -5,14 +5,6 @@ Matrix::Matrix()
 	(*this).resize(1);
 }
 
-Matrix::Matrix(int N)
-{
-	(*this).resize(N);
-	for (int i = 0; i < N; i++)
-	{
-		(*this)[i].resize(N);
-	}
-}
 
 Matrix::Matrix(int rows,int col)
 {
@@ -42,14 +34,16 @@ Matrix::Matrix(Matrix& copyM)
 
 Matrix& Matrix::operator-(const Matrix& subtractMatrix)
 {
+	Matrix resultMatrix((*this).getCols(),((*this).getRows()));
+	Matrix copyMatrix(*this);
 	for (int i = 0; i < (*this).size(); i++)
 	{
 		for (int j = 0; j < (*this)[0].size(); j++)
 		{
-			(*this)[i][j] = (*this)[i][j] - subtractMatrix[i][j];
+			resultMatrix[i][j] = copyMatrix[i][j] - subtractMatrix[i][j];
 		}
 	}
-	return *this;
+	return resultMatrix;
 }
 
 int Matrix::getCols()
