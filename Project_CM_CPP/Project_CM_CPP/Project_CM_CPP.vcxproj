@@ -118,20 +118,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ExplicitLax.cpp" />
-    <ClCompile Include="ExplicitUpwind.cpp" />
-    <ClCompile Include="ImplicitFTCS.cpp" />
-    <ClCompile Include="ImplicitUpwind.cpp" />
+    <ClCompile Include="Explicit.cpp" />
+    <ClCompile Include="Implicit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Scheme.cpp" />
     <ClCompile Include="ThomasAlgorithm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExplicitLax.h" />
-    <ClInclude Include="ExplicitUpwind.h" />
-    <ClInclude Include="ImplicitFTCS.h" />
-    <ClInclude Include="ImplicitUpwind.h" />
+    <ClInclude Include="Explicit.h" />
+    <ClInclude Include="Implicit.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Scheme.h" />
     <ClInclude Include="ThomasAlgorithm.h" />

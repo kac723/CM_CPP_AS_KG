@@ -6,10 +6,8 @@
 #include "Matrix.h"
 #include "ThomasAlgorithm.h"
 #include "Scheme.h"
-#include "ExplicitUpwind.h"
-#include "ExplicitLax.h"
-#include "ImplicitUpwind.h"
-#include "ImplicitFTCS.h"
+#include "Explicit.h"
+#include "Implicit.h"
 #include <algorithm> // for copy
 #include <iterator> // for ostream_iterator
 
@@ -39,17 +37,23 @@ void print(Matrix& T, ostream& out, vector<double>& V)
 int main()
 {
 	double deltaX = 5;
-	double deltaT[3] = { 0.02,0.01,0.005 };
+	double deltaT = 0.01;
+	//double deltaT[3] = { 0.02,0.01,0.005 };
 
-	Scheme* aP[12];
+	//Scheme* aP[12];
 
-	for (int i = 0; i < 3; i++)
-	{
-		aP[i] = new ExplicitUpwind(deltaT[i], deltaX);
-		aP[i+3] = new ExplicitLax(deltaT[i], deltaX);
-		aP[i+6] = new ImplicitUpwind(deltaT[i], deltaX);
-		aP[i+9] = new ImplicitFTCS(deltaT[i], deltaX);
-	}
-	
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	aP[i] = new ExplicitUpwind(deltaT[i], deltaX);
+	//	aP[i+3] = new ExplicitLax(deltaT[i], deltaX);
+	//	aP[i+6] = new ImplicitUpwind(deltaT[i], deltaX);
+	//	//aP[i+9] = new ImplicitFTCS(deltaT[i], deltaX);
+	//}
+	//
+	Scheme *s = new Explicit("FTBS", deltaT, deltaX);
+
+	print(s->getNumerical(), cout, s->getVectorX());
+	print(s->getAnalytical(), cout, s->getVectorX());
+
 	return 0;
 }

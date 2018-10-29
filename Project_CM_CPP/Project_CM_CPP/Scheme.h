@@ -14,7 +14,7 @@ class Scheme
 		std::vector<double> tVector;
 		Matrix NumericalResult;
 		Matrix AnalyticalResult;
-		std::vector<double> norms;
+		double norms[3];
 	public:
 		Scheme();
 		Scheme(double dt, double dx);
@@ -22,7 +22,6 @@ class Scheme
 		Matrix& getAnalytical();
 		double getA();
 		Matrix& getNumerical();
-		void setNumerical(Matrix newNumerical);
 		void initialAndBoundry();
 		std::vector<double>& getVectorX();
 		std::vector<double>& getVectorT();

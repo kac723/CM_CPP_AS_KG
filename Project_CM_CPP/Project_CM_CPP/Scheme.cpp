@@ -4,6 +4,15 @@
 #define pi 4*atan(1.0)
 using namespace std;
 
+//Default constructor
+Scheme::Scheme() {}
+
+
+//Constructor allocates required size for vectors and matrixes based on assigned deltaT and deltaX values
+//Space and Time vector are filled with values from 0 to L(400) with step deltaX for space vector 
+//and from 0 to timeMax(0.6) with step deltaT for time vector.
+//Based on created vectors analytical result is calculated and initial and boundry conditions are applied for further calculations
+//for numerical method
 Scheme::Scheme(double dt, double dx)
 {
 	this->deltaT = dt;
@@ -12,7 +21,6 @@ Scheme::Scheme(double dt, double dx)
 	int sizeT = 1 + (this->timeMax) / dt;
 	this->AnalyticalResult=Matrix(sizeX, sizeT);
 	this->NumericalResult=Matrix(sizeX, sizeT);
-	this->norms.resize(3);
 	this->xVector.resize(sizeX);
 	this->tVector.resize(sizeT);
 	for (int i = 1; i < sizeX; i++)
@@ -28,20 +36,19 @@ Scheme::Scheme(double dt, double dx)
 	this->initialAndBoundry();
 }
 
-Scheme::Scheme() {}
-
+//applying boundry condition and then initial condition based on equation from task description.
 void Scheme::initialAndBoundry()
 {
-	int n;
-	for (n = 0; n < this->getVectorT().size(); n++)// we need to loop only in time (fill every point of time at points L and 0 - boundaries)
+	int vectorXSize = xVector.size();
+	int vectorTSize = tVector.size();
+	for (int n = 0; n < vectorTSize; n++)
 	{
 
 		this->NumericalResult[0][n] = 0;
-		this->NumericalResult[this->getVectorX().size()-1][n] = 0;
+		this->NumericalResult[vectorXSize -1][n] = 0;
 	}
 
-	int i;
-	for (i = 0; i < this->getVectorX().size(); i++)
+	for (int i = 0; i < vectorXSize; i++)
 	{
 		if (xVector[i] < 50)
 		{
@@ -58,65 +65,66 @@ void Scheme::initialAndBoundry()
 	}
 }
 
+//Getter function for space vector. Returns vector<double> xVector.
 vector<double>& Scheme::getVectorX()
 {
 	return xVector;
 }
-
+//Getter function for time vector. Returns vector<double> tVector.
 vector<double>& Scheme::getVectorT()
 {
 	return tVector;
 }
 
+//Function calculates analytical result based on equation from task description and stores results in AnalyticalResult matrix
 void Scheme::calculateAnalyticalResult()
 {
-	int x;
-	int t;
-	for (x = 0; x < xVector.size(); x++)
+	int vectorXSize = xVector.size();
+	int vectorTSize = tVector.size();
+	for (int i = 0; i < vectorXSize; i++)
 	{
-		for (t = 0; t < tVector.size(); t++)
+		for (int n = 0; n < vectorTSize; n++)
 		{
-			if (xVector[x] < (50 + 250 * tVector[t]))
+			if (xVector[i] < (50 + 250 * tVector[n]))
 			{
-				AnalyticalResult[x][t] = 0;
+				AnalyticalResult[i][n] = 0;
 			}
 
-			else if ((xVector[x] >= (50 + 250 * tVector[t])) && (xVector[x] < (110 + 250 * tVector[t])))
+			else if ((xVector[i] >= (50 + 250 * tVector[n])) && (xVector[i] < (110 + 250 * tVector[n])))
 			{
-				AnalyticalResult[x][t] = 100 * sin(pi*((xVector[x] - 50 - 250 * tVector[t]) / (60))); //note: Axel, I think you forgot to write -250*tv[t] in equation here. now it looks better IMO. please check :), note2: I've just noticed that You used formula for initial condition here, I think this was the problem
+				AnalyticalResult[i][n] = 100 * sin(pi*((xVector[i] - 50 - 250 * tVector[n]) / (60))); 
 			}
 
-			else if (xVector[x] >= (110 + 250 * tVector[t]))
+			else if (xVector[i] >= (110 + 250 * tVector[n]))
 			{
-				AnalyticalResult[x][t] = 0;
+				AnalyticalResult[i][n] = 0;
 			}
 		}
 	}
 }
 
+//Getter function for analytical result. Returns Matrix AnalyticalResult
 Matrix& Scheme::getAnalytical()
 {
 	return AnalyticalResult;
 }
 
+//Getter function for numerical result. Returns Matrix NumericalResult
 Matrix & Scheme::getNumerical()
 {
 	return NumericalResult;
 }
 
-void Scheme::setNumerical(Matrix newNumerical)
-{
-	this->NumericalResult=Matrix(newNumerical);
-}
-
+//Function returns A coefficient of wave equation: u*deltaT/deltaX. u is constant=250
 double Scheme::getA()
 {
 	return u * deltaT / deltaX;
 }
 
+//Function calculates one norm, two norm and uniform norm and stores results in array norms
 void Scheme::calculateNorms()
 {
-	Matrix normMatrix((this->getNumerical()-this->getAnalytical()));
+	Matrix normMatrix(NumericalResult-AnalyticalResult);
 	norms[0] = normMatrix.oneNorm();
 	norms[1] = normMatrix.twoNorm();
 	norms[2] = normMatrix.uniformNorm();

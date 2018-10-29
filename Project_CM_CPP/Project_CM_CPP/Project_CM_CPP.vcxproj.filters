@@ -27,16 +27,10 @@
     <ClCompile Include="Scheme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExplicitUpwind.cpp">
+    <ClCompile Include="Implicit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExplicitLax.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitUpwind.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ImplicitFTCS.cpp">
+    <ClCompile Include="Explicit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,16 +44,10 @@
     <ClInclude Include="Scheme.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExplicitUpwind.h">
+    <ClInclude Include="Implicit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExplicitLax.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImplicitUpwind.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImplicitFTCS.h">
+    <ClInclude Include="Explicit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
