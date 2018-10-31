@@ -16,7 +16,7 @@ Step to do in C++:
 2) Add exceptions handling
 3) Add printing methods
 4) Add more comments to code
-5) Improve Matrix class
+5) Improve Matrix class: done
 6) clean up #include in all files
 
 comande gnuplot:

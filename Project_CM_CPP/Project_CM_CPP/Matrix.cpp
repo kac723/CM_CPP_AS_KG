@@ -75,7 +75,7 @@ double Matrix::oneNorm()
 		}
 
 	}
-	return result;
+	return result/(this->getCols()*this->getRows());
 }
 
 double Matrix::twoNorm()
@@ -88,7 +88,7 @@ double Matrix::twoNorm()
 			result += pow(abs((*this)[i][n]), 2);
 		}
 	}
-	return sqrt(result);
+	return sqrt(result) / (this->getCols()*this->getRows());
 }
 
 double Matrix::uniformNorm()
@@ -110,5 +110,5 @@ double Matrix::uniformNorm()
 		}
 
 	}
-	return result;
+	return result / (this->getCols()*this->getRows());
 }

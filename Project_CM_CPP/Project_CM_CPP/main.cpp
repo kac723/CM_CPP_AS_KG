@@ -37,23 +37,19 @@ void print(Matrix T, ostream& out, vector<double>& V)
 
 int main()
 {
-	double deltaX = 20;
-	double deltaT = 0.1;
-	//double deltaT[3] = { 0.02,0.01,0.005 };
+	double deltaX = 5;
+	double deltaT[3] = { 0.02,0.01,0.005 };
 
-	//Scheme* aP[12];
+	Scheme* aP[12];
 
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	aP[i] = new ExplicitUpwind(deltaT[i], deltaX);
-	//	aP[i+3] = new ExplicitLax(deltaT[i], deltaX);
-	//	aP[i+6] = new ImplicitUpwind(deltaT[i], deltaX);
-	//	//aP[i+9] = new ImplicitFTCS(deltaT[i], deltaX);
-	//}
-	//
-	Scheme *s = new Explicit("FTBS", deltaT, deltaX);
+	for (int i = 0; i < 3; i++)
+	{
+		aP[i] = new Explicit("FTBS",deltaT[i], deltaX);
+		aP[i+3] = new Explicit("LW",deltaT[i], deltaX);
 
-	s->printResults();
+		aP[i+6] = new Implicit("FTBS", deltaT[i], deltaX);
+		aP[i+9] = new Implicit("FTCS",deltaT[i], deltaX);
+	}
 
 	return 0;
 }

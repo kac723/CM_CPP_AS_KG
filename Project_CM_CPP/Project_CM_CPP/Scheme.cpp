@@ -130,3 +130,13 @@ void Scheme::calculateNorms()
 	norms[2] = normMatrix.uniformNorm();
 }
 
+double* Scheme::getNorms()
+{
+	return this->norms;
+}
+
+double Scheme::getTimeMax()
+{
+	return this->timeMax;
+}
+
