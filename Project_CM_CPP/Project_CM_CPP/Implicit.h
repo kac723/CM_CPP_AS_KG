@@ -9,6 +9,7 @@ class Implicit :public Scheme
 		ThomasAlgorithm TA;
 	public:
 		virtual void calculateNumericalSolution();
+		virtual void printResults();
 		Implicit();
 		Implicit(std::string method, double dT, double dx);
 }; 

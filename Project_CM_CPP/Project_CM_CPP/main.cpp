@@ -16,7 +16,7 @@
 using namespace std;
 
 
-void print(Matrix& T, ostream& out, vector<double>& V)
+void print(Matrix T, ostream& out, vector<double>& V)
 {
 	int i;
 	int n;
@@ -31,13 +31,14 @@ void print(Matrix& T, ostream& out, vector<double>& V)
 		}
 		out << endl;
 	}
+	out << endl;
 }
 
 
 int main()
 {
-	double deltaX = 5;
-	double deltaT = 0.01;
+	double deltaX = 20;
+	double deltaT = 0.1;
 	//double deltaT[3] = { 0.02,0.01,0.005 };
 
 	//Scheme* aP[12];
@@ -52,8 +53,7 @@ int main()
 	//
 	Scheme *s = new Explicit("FTBS", deltaT, deltaX);
 
-	print(s->getNumerical(), cout, s->getVectorX());
-	print(s->getAnalytical(), cout, s->getVectorX());
+	s->printResults();
 
 	return 0;
 }

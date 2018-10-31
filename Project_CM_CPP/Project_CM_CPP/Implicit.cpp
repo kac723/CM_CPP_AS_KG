@@ -49,3 +49,8 @@ Implicit::Implicit(string method,double dT, double dx) : Scheme(dT, dx),method(m
 }
 
 
+
+void Implicit::printResults()
+{
+
+}

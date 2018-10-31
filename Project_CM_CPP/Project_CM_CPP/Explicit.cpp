@@ -1,4 +1,6 @@
 #include "Explicit.h"
+#include <fstream>
+#include <ostream>
 
 using namespace std;
 
@@ -59,4 +61,14 @@ Explicit::Explicit(string newMethod,double dT, double dx) : Scheme(dT,dx),method
 	}
 	this->calculateNumericalSolution();
 	//this->calculateNorms();
+}
+
+void Explicit::printResults()
+{
+	string dxS = to_string(short((this->getVectorX()[1]- this->getVectorX()[0])));
+	string dxT = to_string(((this->getVectorT()[1] - this->getVectorT()[0])));
+	dxT.erase(dxT.find_last_not_of('0') + 1);
+	string fileName = "Explicit_" + method + "_" + "dx=" + dxS + "_" + "dt=" + dxT;
+	ofstream writeFile;
+	writeFile.open(fileName);
 }
