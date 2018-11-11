@@ -14,7 +14,9 @@ double FTBS(double a, Matrix& numerical, int i, int n)
 
 double LW(double a, Matrix& numerical, int i, int n)
 {
-	return 0.5*(numerical[i + 1][n - 1] + numerical[i - 1][n - 1]) - a * (numerical[i + 1][n - 1] - numerical[i - 1][n - 1]);
+	//return (0.5*(numerical[i + 1][n - 1] + numerical[i - 1][n - 1]) - a*(numerical[i + 1][n - 1] - numerical[i - 1][n - 1]));
+	//return ((numerical[i][n - 1]) - a * 0.5*(numerical[i + 1][n - 1] - numerical[i - 1][n - 1]));
+	return numerical[i][n - 1] - 0.5*a*(numerical[i + 1][n - 1] - numerical[i - 1][n - 1]) +  (a*a*0.5)*(numerical[i + 1][n - 1] - 2*numerical[i][n - 1] + numerical[i - 1][n - 1]);
 }
 
 //calculating numerical result based on method specified in constructor (FTBS or LW)
@@ -105,4 +107,5 @@ void Explicit::printResults()
 
 		writeFile << endl;
 	}
+	writeFile.close();
 }

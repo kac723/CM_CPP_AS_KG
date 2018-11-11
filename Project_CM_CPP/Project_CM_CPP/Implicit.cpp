@@ -78,13 +78,13 @@ void Implicit::printResults()
 		for (int n = 0; n < 6; n++)
 		{
 			timePointer = timePrintIndex[n];
-			writeFile << fixed << setprecision(6) << this->getNumerical()[i][timePointer];
+			writeFile << fixed << setprecision(6) << this->getNumerical()[i][timePointer] << ", ";
 		}
 
 		for (int n = 0; n < 6; n++)
 		{
 			timePointer = timePrintIndex[n];
-			writeFile << fixed << setprecision(6) << this->getAnalytical()[i][timePointer];
+			writeFile << fixed << setprecision(6) << this->getAnalytical()[i][timePointer] ;
 			if (n != this->getVectorT().size() - 1)
 			{
 				writeFile << ", ";
@@ -93,4 +93,5 @@ void Implicit::printResults()
 
 		writeFile << endl;
 	}
+	writeFile.close();
 }
