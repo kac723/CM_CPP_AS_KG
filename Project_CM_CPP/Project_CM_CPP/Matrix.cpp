@@ -15,7 +15,7 @@ Matrix::Matrix(int rows,int col)
 	}
 }
 
-Matrix::Matrix(Matrix& copyM)
+Matrix::Matrix(const Matrix& copyM)
 {
 	(*this).resize(copyM.getCols());
 	for (int i = 0; i < copyM.getCols(); i++)
@@ -32,26 +32,26 @@ Matrix::Matrix(Matrix& copyM)
 	}
 }
 
-Matrix& Matrix::operator-(const Matrix& subtractMatrix)
+Matrix Matrix::operator-(Matrix subtractMatrix)
 {
 	Matrix resultMatrix((*this).getCols(),((*this).getRows()));
-	Matrix copyMatrix(*this);
+	//Matrix copyMatrix(*this);
 	for (int i = 0; i < (*this).size(); i++)
 	{
 		for (int j = 0; j < (*this)[0].size(); j++)
 		{
-			resultMatrix[i][j] = copyMatrix[i][j] - subtractMatrix[i][j];
+			resultMatrix[i][j] = (*this)[i][j] - subtractMatrix[i][j];
 		}
 	}
 	return resultMatrix;
 }
 
-int Matrix::getCols()
+int Matrix::getCols() const
 {
 	return (*this).size();
 }
 
-int Matrix::getRows()
+int Matrix::getRows() const
 {
 	return (*this)[0].size();
 }
@@ -75,7 +75,7 @@ double Matrix::oneNorm()
 		}
 
 	}
-	return result;
+	return result/(this->getCols()*this->getRows());
 }
 
 double Matrix::twoNorm()
@@ -88,7 +88,7 @@ double Matrix::twoNorm()
 			result += pow(abs((*this)[i][n]), 2);
 		}
 	}
-	return sqrt(result);
+	return sqrt(result) / (this->getCols()*this->getRows());
 }
 
 double Matrix::uniformNorm()
@@ -110,5 +110,5 @@ double Matrix::uniformNorm()
 		}
 
 	}
-	return result;
+	return result / (this->getCols()*this->getRows());
 }

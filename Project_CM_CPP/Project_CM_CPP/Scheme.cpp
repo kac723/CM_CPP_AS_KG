@@ -110,7 +110,7 @@ Matrix& Scheme::getAnalytical()
 }
 
 //Getter function for numerical result. Returns Matrix NumericalResult
-Matrix & Scheme::getNumerical()
+Matrix& Scheme::getNumerical()
 {
 	return NumericalResult;
 }
@@ -129,3 +129,14 @@ void Scheme::calculateNorms()
 	norms[1] = normMatrix.twoNorm();
 	norms[2] = normMatrix.uniformNorm();
 }
+
+double* Scheme::getNorms()
+{
+	return this->norms;
+}
+
+double Scheme::getTimeMax()
+{
+	return this->timeMax;
+}
+

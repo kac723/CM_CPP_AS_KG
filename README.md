@@ -16,7 +16,8 @@ Step to do in C++:
 2) Add exceptions handling
 3) Add printing methods
 4) Add more comments to code
-5) Improve Matrix class
+5) Improve Matrix class: done
+6) clean up #include in all files
 
 comande gnuplot:
 plot 'output1.txt' u 1:2 w l t 't = 0', 'output1.txt' u 1:3 w l t 't = 0.1', 'output1.txt' u 1:4 w l t 't = 0.2', 'output1.txt' u 1:5 w l t 't = 0.3', 'output1.txt' u 1:6 w l t 't = 0.4','output1.txt' u 1:7 w l t 't = 0.5'

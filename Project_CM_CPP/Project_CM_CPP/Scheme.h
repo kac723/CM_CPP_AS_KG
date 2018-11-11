@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <ostream>
+#include <string>
 #include "Matrix.h"
 
 class Scheme
@@ -26,5 +28,8 @@ class Scheme
 		std::vector<double>& getVectorX();
 		std::vector<double>& getVectorT();
 		void calculateNorms();
+		double* getNorms();
+		double getTimeMax();
+		virtual void printResults()=0;
 		virtual void calculateNumericalSolution()=0; // add const = 0  at the end ?
 };
