@@ -30,9 +30,9 @@ void Explicit::calculateNumericalSolution()
 	int vectorXSize = this->getVectorX().size();
 	int vectorTSize = this->getVectorT().size();
 	modifyCaluclationLimits(vectorXSize, vectorTSize);
-	for (int i = 1; i < vectorXSize; i++)
+	for (int n = 1; n < vectorTSize; n++)
 	{
-		for( int n = 1; n < vectorTSize; n++)
+		for (int i = 1; i < vectorXSize; i++)
 		{
 			this->getNumerical()[i][n] = functionPtr(a, this->getNumerical(), i, n);
 		}
