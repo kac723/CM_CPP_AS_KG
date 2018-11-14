@@ -1,14 +1,18 @@
-﻿  main.cpp
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\condition.h(20): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\condition.h(22): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(20): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(22): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(138): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(141): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(154): warning C4101: 'newB' : variable locale non référencée
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(154): warning C4101: 'newD' : variable locale non référencée
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(191): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(192): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(202): warning C4018: '<' : incompatibilité signed/unsigned
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\main.cpp(207): warning C4018: '<' : incompatibilité signed/unsigned
+﻿  Explicit.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(77): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(77): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(89): warning C4018: '<' : incompatibilité signed/unsigned
+  Implicit.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(63): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(63): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(75): warning C4018: '<' : incompatibilité signed/unsigned
+  main.cpp
+  Matrix.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\matrix.cpp(39): warning C4018: '<' : incompatibilité signed/unsigned
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\matrix.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
+  Scheme.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(20): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(21): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+  ThomasAlgorithm.cpp
+  Génération de code en cours...
   Project_CM_CPP.vcxproj -> D:\Documents\a.simon\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe

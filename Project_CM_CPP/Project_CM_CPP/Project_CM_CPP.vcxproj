@@ -118,12 +118,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Explicit.cpp" />
+    <ClCompile Include="Implicit.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Scheme.cpp" />
+    <ClCompile Include="ThomasAlgorithm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Condition.h" />
-    <ClInclude Include="Method.h" />
-    <ClInclude Include="Norm.h" />
+    <ClInclude Include="Explicit.h" />
+    <ClInclude Include="Implicit.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Scheme.h" />
+    <ClInclude Include="ThomasAlgorithm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
