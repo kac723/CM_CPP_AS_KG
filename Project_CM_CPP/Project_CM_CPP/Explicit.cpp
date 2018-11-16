@@ -5,13 +5,31 @@
 #include <iterator>
 #include <algorithm>
 
-using namespace std;
-
+/**
+Function created for return the value of the FTBS.
+FTBS is Forward derivation in time and bacward driavation in space
+Intialize this function with :
+* coef in front of the second partial derivative (Type double)
+* Function that we want to evaluate (Type Matrix)
+* Space coefficient (Type int)
+* Time coefficient (Type int)
+* @return the value of the FTBS
+*/
 double FTBS(double a, Matrix& numerical, int i, int n)
 {
 	return (1 - (a))*numerical[i][n - 1] + (a)*numerical[i - 1][n - 1];
 }
 
+/**
+Function created for return the value of the LW.
+LW is for the Lax-Wendroff method.
+Intialize this function with :
+* coef in front of the second partial derivative (Type double)
+* Function that we want to evaluate (Type Matrix)
+* Space coefficient (Type int) 
+* Time coefficient (Type int)
+* @return the value of the LW
+*/
 double LW(double a, Matrix& numerical, int i, int n)
 {
 	//return (0.5*(numerical[i + 1][n - 1] + numerical[i - 1][n - 1]) - a*(numerical[i + 1][n - 1] - numerical[i - 1][n - 1]));
@@ -19,11 +37,13 @@ double LW(double a, Matrix& numerical, int i, int n)
 	return numerical[i][n - 1] - 0.5*a*(numerical[i + 1][n - 1] - numerical[i - 1][n - 1]) +  (a*a*0.5)*(numerical[i + 1][n - 1] - 2*numerical[i][n - 1] + numerical[i - 1][n - 1]);
 }
 
-//calculating numerical result based on method specified in constructor (FTBS or LW)
-//before starting calculation function modifyCaluclationLimits is called in order to modify limits of calculation. This is necessary opeartion 
-//for Lax-Wendroff method. 
-//function calculateNumericalSolution is virtual function from abstract class Scheme.
-//As Explicit class inherit from Scheme it must implement this function.
+/**
+Calculating numerical result based on method specified in constructor (FTBS or LW)
+Before starting calculation function modifyCaluclationLimits is called in order to modify limits of calculation.
+This is necessary opeartion for LW (Lax-Wendroff) method.
+This function is a virtual function from abstract class Scheme.
+As Explicit class inherit from Scheme it must implement this function.
+*/
 void Explicit::calculateNumericalSolution()
 {
 	double a = this->getA();
@@ -39,46 +59,36 @@ void Explicit::calculateNumericalSolution()
 	}
 }
 
-// function created for future purposes. When creating new methods it may be necessary to change space or time limits in different way
+/**
+For Lax-Wendroff method we need to modify limits of calculation for space. 
+It's caused by Lax-Wendroff equation indexes
+*/
 void Explicit::modifyCaluclationLimits(int &spaceLimit, int &timeLimit) 
 {
 	if (method == "LW")
 	{
-		spaceLimit--; // for Lax-Wendroff method we need to modify limits of calculation for space. It's caused by Lax-Wendroff equation indexes
+		spaceLimit--; 
 	}
 }
 
-// default calculation method is FTBS -> Upwind
-Explicit::Explicit():method("FTBS") {} 
-
-//Constructor defines value of functionPtr. This is variable that points to function and will point to function FTBS or LW.
-//Those functions calculated numerical result based on proper equation evaluated for each method.
-//This constructor calls functios calculateNumericalSolution and calculateNorms.
-Explicit::Explicit(string newMethod,double dT, double dx) : Scheme(dT,dx),method(newMethod)
+/**
+default calculation method is FTBS -> Upwind
+*/
+Explicit::Explicit():method("FTBS") 
 {
-	if (method == "FTBS")
-	{
-		functionPtr = FTBS;
-	}
-	else if (method == "LW")
-	{
-		functionPtr = LW;
-	}
-	this->calculateNumericalSolution();
-	this->calculateNorms();
-	this->printResults();
-}
+	// Nothing
+} 
 
 void Explicit::printResults()
 {
 	double timeMax = this->getTimeMax();
 	double dT = (this->getVectorT()[1] - this->getVectorT()[0]);
 	int timeVectorSize = this->getVectorT().size();
-	int timePrintIndex[6] = { 0,0.1*(timeVectorSize /timeMax), 0.2*(timeVectorSize / timeMax), 0.3*(timeVectorSize / timeMax), 0.4*(timeVectorSize / timeMax), 0.5*(timeVectorSize / timeMax)};
-	string dxS = to_string(short((this->getVectorX()[1]- this->getVectorX()[0])));
+	int timePrintIndex[6] = { 0,0.1*(timeVectorSize / timeMax), 0.2*(timeVectorSize / timeMax), 0.3*(timeVectorSize / timeMax), 0.4*(timeVectorSize / timeMax), 0.5*(timeVectorSize / timeMax) };
+	string dxS = to_string(short((this->getVectorX()[1] - this->getVectorX()[0])));
 	string dxT = to_string(dT);
 	dxT.erase(dxT.find_last_not_of('0') + 1);
-	string fileName = "Explicit_" + method + "_" + "dx=" + dxS + "_" + "dt=" + dxT+".txt";
+	string fileName = "Explicit_" + method + "_" + "dx=" + dxS + "_" + "dt=" + dxT + ".txt";
 	ofstream writeFile;
 	writeFile.open(fileName);
 	double norms[3] = { this->getNorms()[0],this->getNorms()[1],this->getNorms()[2] };
@@ -92,7 +102,7 @@ void Explicit::printResults()
 		for (int n = 0; n < 6; n++)
 		{
 			timePointer = timePrintIndex[n];
-			writeFile << fixed << setprecision(6) << this->getNumerical()[i][timePointer]<<", ";
+			writeFile << fixed << setprecision(6) << this->getNumerical()[i][timePointer] << ", ";
 		}
 
 		for (int n = 0; n < 6; n++)
@@ -109,3 +119,25 @@ void Explicit::printResults()
 	}
 	writeFile.close();
 }
+
+/**
+Constructor defines value of functionPtr. This is variable that points to function and will point to function FTBS or LW.
+Those functions calculated numerical result based on proper equation evaluated for each method.
+This constructor calls functios calculateNumericalSolution and calculateNorms.
+Then we prin the result with the function printResult
+*/
+Explicit::Explicit(string newMethod,double dT, double dx) : Scheme(dT,dx),method(newMethod)
+{
+	if (method == "FTBS")
+	{
+		functionPtr = FTBS;
+	}
+	else if (method == "LW")
+	{
+		functionPtr = LW;
+	}
+	this->calculateNumericalSolution();
+	this->calculateNorms();
+	this->printResults();
+}
+

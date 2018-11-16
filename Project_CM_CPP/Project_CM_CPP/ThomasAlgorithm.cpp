@@ -1,5 +1,4 @@
 #include "ThomasAlgorithm.h"
-using namespace std;
 
 //Default constructor
 ThomasAlgorithm::ThomasAlgorithm()

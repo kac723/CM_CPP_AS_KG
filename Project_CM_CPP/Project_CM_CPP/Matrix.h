@@ -1,12 +1,17 @@
-#pragma once
+#ifndef MATRIX_H //Include guard
+#define MATRIX_H
+
 #include <vector>
 #include <algorithm>
 #include <iterator>
 #include <iostream>
-class Matrix : private std::vector<std::vector<double>>
+
+using namespace std;
+
+class Matrix : private vector<vector<double>>
 {
 private:
-	typedef std::vector<std::vector<double>> m;
+	typedef vector<vector<double>> m;
 public:
 	using m::operator[];
 	Matrix();
@@ -19,3 +24,5 @@ public:
 	int getRows() const;
 	Matrix operator-(Matrix subtractMatrix);
 };
+
+#endif

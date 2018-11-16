@@ -1,18 +1,18 @@
 ﻿  Explicit.cpp
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(77): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(77): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(89): warning C4018: '<' : incompatibilité signed/unsigned
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(87): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(87): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(99): warning C4018: '<' : incompatibilité signed/unsigned
   Implicit.cpp
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(63): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(63): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(75): warning C4018: '<' : incompatibilité signed/unsigned
-  main.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(62): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(62): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\implicit.cpp(74): warning C4018: '<' : incompatibilité signed/unsigned
   Matrix.cpp
 d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\matrix.cpp(39): warning C4018: '<' : incompatibilité signed/unsigned
 d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\matrix.cpp(41): warning C4018: '<' : incompatibilité signed/unsigned
   Scheme.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(19): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
 d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(20): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(21): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
   ThomasAlgorithm.cpp
+  main.cpp
   Génération de code en cours...
   Project_CM_CPP.vcxproj -> D:\Documents\a.simon\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe

@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <iterator>
 #include <algorithm>
-using namespace std;
 
 //This function calculates numerical solution for implicit scheme.
 //Calculations for implicit schemes are done by solving system of equations using Thomas Algorithm

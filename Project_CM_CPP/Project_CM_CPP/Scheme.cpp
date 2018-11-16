@@ -2,7 +2,6 @@
 #include <cmath>
 
 #define pi 4*atan(1.0)
-using namespace std;
 
 //Default constructor
 Scheme::Scheme() {}
