@@ -8,6 +8,12 @@
 
 using namespace std;
 
+/**
+A Matrix class in order to sole the problem with the explicit method
+The Matrix class provides:
+* basic constructors for using the matrix method with the vector Class.
+*
+*/
 class Matrix : private vector<vector<double>>
 {
 private:

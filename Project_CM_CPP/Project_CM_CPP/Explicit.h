@@ -6,16 +6,13 @@
 using namespace std;
 
 /**
-An explicit class in order to sole the problem with the explicit upwind method 
+An explicit class in order to solve the problem with the explicit method 
 The Explicit class provides:
 * basic constructors for using the explicit method with the Scheme Class.
 */
 class Explicit: public Scheme
 {	
 	private:
-		/**
-		The name of this new method 
-		*/
 		string method;
 		double (*functionPtr)(double, Matrix&,int,int);
 

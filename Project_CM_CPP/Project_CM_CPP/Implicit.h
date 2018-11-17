@@ -6,16 +6,37 @@
 
 using namespace std;
 
+/**
+An explicit class in order to solve the problem with the implicit method 
+The Implicite class provides:
+* basic constructors for using the imlicit method with the Scheme Class.
+*/
 class Implicit :public Scheme
 {
 	private:
 		string method;
 		ThomasAlgorithm TA;
+
 	public:
+		// CONSTRUCTORS
+		/**
+		* Default constructor.  Intialize an empty Implicit Method
+		* @see Implicit(string newMethod, double dT, double dx)
+		*/
+		Implicit();
+		/**
+		Copy constructor takes an Implicit method reference.
+		Intialize this method with:
+		* The name of the new method
+		* The delta T parameter (Time interval)
+		* The delta X parameter (Space interval)
+		* @see Explicit()
+		*/
+		Implicit(string method, double dT, double dx);
+
 		virtual void calculateNumericalSolution();
 		virtual void printResults();
-		Implicit();
-		Implicit(string method, double dT, double dx);
+
 }; 
 
 
