@@ -27,9 +27,9 @@ class Implicit :public Scheme
 		/**
 		Copy constructor takes an Implicit method reference.
 		Intialize this method with:
-		* The name of the new method
-		* The delta T parameter (Time interval)
-		* The delta X parameter (Space interval)
+		* The name of the new method (Type string)
+		* The delta T parameter (Time interval) (Type double)
+		* The delta X parameter (Space interval) (Type double)
 		* @see Explicit()
 		*/
 		Implicit(string method, double dT, double dx);
