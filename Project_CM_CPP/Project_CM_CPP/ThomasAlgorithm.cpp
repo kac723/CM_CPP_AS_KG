@@ -7,11 +7,11 @@ ThomasAlgorithm::ThomasAlgorithm()
 	//
 }
 
-//Constructor assigns values passed as arguments: a, b, c to aCoef, bCoef, cCoef respectively.
-//size value of Thomas Algorithm class will be initialized with newSize value
+///Constructor assigns values passed as arguments: a, b, c to aCoef, bCoef, cCoef respectively.
+///size value of Thomas Algorithm class will be initialized with newSize value
 ThomasAlgorithm::ThomasAlgorithm(double a, double b, double c, int newSize): aCoef(a),bCoef(b),cCoef(c),size(newSize) {}
 
-//Function for setting a,b,c coefficients.
+///Function for setting a,b,c coefficients.
 void ThomasAlgorithm::setCoefficients(double newA, double newB, double newC)
 {
 	this->aCoef = newA;

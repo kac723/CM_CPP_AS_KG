@@ -1,4 +1,5 @@
 #include "Scheme.h"
+#include <iomanip>
 #include <cmath>
 
 #define pi 4*atan(1.0)
@@ -8,11 +9,11 @@ using namespace std;
 Scheme::Scheme() {}
 
 
-//Constructor allocates required size for vectors and matrixes based on assigned deltaT and deltaX values
-//Space and Time vector are filled with values from 0 to L(400) with step deltaX for space vector 
-//and from 0 to timeMax(0.6) with step deltaT for time vector.
-//Based on created vectors analytical result is calculated and initial and boundry conditions are applied for further calculations
-//for numerical method
+///Constructor allocates required size for vectors and matrixes based on assigned deltaT and deltaX values
+///Space and Time vector are filled with values from 0 to L(400) with step deltaX for space vector 
+///and from 0 to timeMax(0.6) with step deltaT for time vector.
+///Based on created vectors analytical result is calculated and initial and boundry conditions are applied for further calculations
+///for numerical method
 Scheme::Scheme(double dt, double dx)
 {
 	this->deltaT = dt;
@@ -76,7 +77,7 @@ vector<double>& Scheme::getVectorT()
 	return tVector;
 }
 
-//Function calculates analytical result based on equation from task description and stores results in AnalyticalResult matrix
+///Function calculates analytical result based on equation from task description and stores results in AnalyticalResult matrix
 void Scheme::calculateAnalyticalResult()
 {
 	int vectorXSize = xVector.size();
@@ -103,13 +104,7 @@ void Scheme::calculateAnalyticalResult()
 	}
 }
 
-//Getter function for analytical result. Returns Matrix AnalyticalResult
-Matrix& Scheme::getAnalytical()
-{
-	return AnalyticalResult;
-}
-
-//Getter function for numerical result. Returns Matrix NumericalResult
+///Getter function for numerical result. Returns Matrix NumericalResult
 Matrix& Scheme::getNumerical()
 {
 	return NumericalResult;
@@ -121,7 +116,7 @@ double Scheme::getA()
 	return u * deltaT / deltaX;
 }
 
-//Function calculates one norm, two norm and uniform norm and stores results in array norms
+///Function calculates one norm, two norm and uniform norm and stores results in array norms
 void Scheme::calculateNorms()
 {
 	Matrix normMatrix(NumericalResult-AnalyticalResult);
@@ -130,13 +125,37 @@ void Scheme::calculateNorms()
 	norms[2] = normMatrix.uniformNorm();
 }
 
-double* Scheme::getNorms()
+void Scheme::printResults(string schemeMethod)
 {
-	return this->norms;
-}
+	int timeVectorSize = tVector.size();
+	int timePrintIndex[6] = { 0,0.1*(timeVectorSize / timeMax), 0.2*(timeVectorSize / timeMax), 0.3*(timeVectorSize / timeMax), 0.4*(timeVectorSize / timeMax), 0.5*(timeVectorSize / timeMax) };
+	string dtS = to_string(deltaT);
+	dtS.erase(dtS.find_last_not_of('0') + 1);
+	string fileName = schemeMethod + "_"+ "dx=" + to_string(short(deltaX)) + "_" + "dt=" + dtS + ".txt";
+	ofstream writeFile;
+	writeFile.open(fileName);
+	writeFile << "Norms are:" << endl << "\t" << "-One norm: " << norms[0] << endl << "\t" << "-Two norm: " << norms[1] << endl << "\t" << "-Uniform norm: " << norms[2] << endl;
+	writeFile << "Numerical \t\t\t\t\t Analytical" << endl << "x " << "t=0s " << "t=0.1s " << "t=0.2s " << "t=0.3s " << "t=0.4s " << "t=0.5s" << endl;
+	for (int i = 0; i < xVector.size(); i++)
+	{
+		writeFile << fixed << setprecision(6) << xVector[i] << ", ";
+		for (int n = 0; n < 6; n++)
+		{
+			//timePointer = timePrintIndex[n];
+			writeFile << fixed << setprecision(6) << NumericalResult[i][timePrintIndex[n]] << ", ";
+		}
 
-double Scheme::getTimeMax()
-{
-	return this->timeMax;
-}
+		for (int n = 0; n < 6; n++)
+		{
+			//timePointer = timePrintIndex[n];
+			writeFile << fixed << setprecision(6) << AnalyticalResult[i][timePrintIndex[n]];
+			if (n != this->getVectorT().size() - 1)
+			{
+				writeFile << ", ";
+			}
+		}
 
+		writeFile << endl;
+	}
+	writeFile.close();
+}

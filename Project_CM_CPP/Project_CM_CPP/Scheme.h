@@ -2,6 +2,7 @@
 #include <vector>
 #include <ostream>
 #include <string>
+#include <fstream>
 #include "Matrix.h"
 
 class Scheme
@@ -21,15 +22,12 @@ class Scheme
 		Scheme();
 		Scheme(double dt, double dx);
 		void calculateAnalyticalResult();
-		Matrix& getAnalytical();
 		double getA();
 		Matrix& getNumerical();
 		void initialAndBoundry();
 		std::vector<double>& getVectorX();
 		std::vector<double>& getVectorT();
 		void calculateNorms();
-		double* getNorms();
-		double getTimeMax();
-		virtual void printResults()=0;
+		void printResults(std::string schemeMethod);
 		virtual void calculateNumericalSolution()=0; // add const = 0  at the end ?
 };
