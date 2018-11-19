@@ -1,6 +1,6 @@
 Norms are:
-	-One norm: 8.93484e-16
-	-Two norm: 6.27926e-16
+	-One norm: 8.99144e-16
+	-Two norm: 6.2997e-16
 	-Uniform norm: 4.74611e-16
 Numerical 					 Analytical
 x t=0s t=0.1s t=0.2s t=0.3s t=0.4s t=0.5s
