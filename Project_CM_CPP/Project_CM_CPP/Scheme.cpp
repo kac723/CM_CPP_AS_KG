@@ -141,13 +141,11 @@ void Scheme::printResults(string schemeMethod)
 		writeFile << fixed << setprecision(6) << xVector[i] << ", ";
 		for (int n = 0; n < 6; n++)
 		{
-			//timePointer = timePrintIndex[n];
 			writeFile << fixed << setprecision(6) << NumericalResult[i][timePrintIndex[n]] << ", ";
 		}
 
 		for (int n = 0; n < 6; n++)
 		{
-			//timePointer = timePrintIndex[n];
 			writeFile << fixed << setprecision(6) << AnalyticalResult[i][timePrintIndex[n]];
 			if (n != this->getVectorT().size() - 1)
 			{
