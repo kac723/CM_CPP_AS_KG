@@ -9,6 +9,7 @@ using namespace std;
 An explicit class in order to solve the problem with the explicit method 
 The Explicit class provides:
 * basic constructors for using the explicit method with the Scheme Class.
+* or by creating an empty explicit of a given the name of the method(FTBS or LW) deltaT and deltaX.
 */
 class Explicit: public Scheme
 {	
@@ -33,18 +34,30 @@ class Explicit: public Scheme
 		* @see Explicit()
 		*/
 		Explicit(string newMethod, double dT, double dx);
-
-		virtual void calculateNumericalSolution() ;
-		virtual void printResults();
-
+		
+		// METHOD
 		/**
-		Function created for future purposes. 
+		Function created for future purposes.
 		When creating new methods it may be necessary to change space or time limits in different way
 		Intialize this function with :
 		* The new limit in space (Type int)
 		* The new limit in time (Type int)
 		*/
 		void modifyCaluclationLimits(int &spaceLimit, int &timeLimit);
+
+		// VIRTUAL METHODS
+		/**
+		This method is a virtual method from abstract class Scheme.
+		Calculating numerical result based on method specified in constructor (FTBS or LW).
+		As Explicit class inherit from Scheme it must implement this method.
+		*/
+		virtual void calculateNumericalSolution() ;
+		/**
+		This method is a virtual method from abstract class Scheme.
+		Printing numerical result based on method specified in constructor (FTBS or LW).
+		As Explicit class inherit from Scheme it must implement this method.
+		*/
+		virtual void printResults();
 };
 
 #endif
