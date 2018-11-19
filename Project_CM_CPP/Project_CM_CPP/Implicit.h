@@ -26,7 +26,6 @@ class Implicit :public Scheme
 		*/
 		Implicit();
 		/**
-		Copy constructor takes an Implicit method reference.
 		Intialize this method with:
 		* The name of the new method (Type string)
 		* The delta T parameter (Time interval) (Type double)
@@ -42,13 +41,6 @@ class Implicit :public Scheme
 		As Implicit class inherit from Scheme it must implement this method.
 		*/
 		virtual void calculateNumericalSolution();
-		/**
-		This function is a virtual function from abstract class Scheme.
-		Printing numerical result based on method specified in constructor (FTBS or FTCS).
-		As Implicit class inherit from Scheme it must implement this method.
-		*/
-		virtual void printResults();
-
 }; 
 
 

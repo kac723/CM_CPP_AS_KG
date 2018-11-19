@@ -52,12 +52,6 @@ class Explicit: public Scheme
 		As Explicit class inherit from Scheme it must implement this method.
 		*/
 		virtual void calculateNumericalSolution() ;
-		/**
-		This method is a virtual method from abstract class Scheme.
-		Printing numerical result based on method specified in constructor (FTBS or LW).
-		As Explicit class inherit from Scheme it must implement this method.
-		*/
-		virtual void printResults();
 };
 
 #endif

@@ -4,13 +4,6 @@
 #include "Scheme.h"
 #include "ThomasAlgorithm.h"
 
-#include <iostream>
-#include <vector>
-#include <math.h>
-#include <iomanip>
-#include <fstream>
-#include <algorithm> // for copy
-#include <iterator> // for ostream_iterator
 
 int main()
 {

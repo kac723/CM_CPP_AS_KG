@@ -3,8 +3,10 @@
 
 #include <vector>
 #include <ostream>
+#include <fstream>
 #include <string>
 #include "Matrix.h"
+
 
 using namespace std;
 
@@ -82,11 +84,9 @@ class Scheme
 		*/
 		void calculateNorms();
 
+		void printResults(string schemeMethod);
+
 		// Getter functions 
-		/**
-		Return the private Matrix AnalyticalResult
-		*/
-		Matrix& getAnalytical();
 		/**
 		Return the private Matrix NumericalResult
 		*/
@@ -99,17 +99,8 @@ class Scheme
 		Return the private vector<double> tVector
 		*/
 		vector<double>& getVectorT();
-		/**
-		Return the private array of double norms
-		*/
-		double* getNorms();
-		/**
-		Return the max value of the time 
-		*/
-		double getTimeMax();
 
-		virtual void printResults() = 0;
-		virtual void calculateNumericalSolution() = 0; // add const = 0  at the end ?
+		virtual void calculateNumericalSolution() = 0; // add const = 0  at the end 
 };
 
 #endif

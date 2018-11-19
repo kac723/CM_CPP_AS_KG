@@ -1,4 +1,5 @@
 #include "Scheme.h"
+#include <iomanip>
 #include <cmath>
 
 #define pi 4*atan(1.0)
@@ -121,6 +122,48 @@ void Scheme::calculateNorms()
 	norms[2] = normMatrix.uniformNorm();
 }
 
+void Scheme::printResults(std::string schemeMethod)
+{
+	// Variables
+	int timeVectorSize = tVector.size();
+	int timePrintIndex[6] = { 0,0.1*(timeVectorSize / timeMax), 0.2*(timeVectorSize / timeMax), 0.3*(timeVectorSize / timeMax), 0.4*(timeVectorSize / timeMax), 0.5*(timeVectorSize / timeMax) };
+	string dtS = to_string(deltaT);
+	
+	dtS.erase(dtS.find_last_not_of('0') + 1);
+	
+	// Creating the file and the name of the file
+	string fileName = schemeMethod + "" + "dx=" + to_string(short(deltaX)) + "" + "dt=" + dtS + ".txt";
+	ofstream writeFile;
+	writeFile.open(fileName);
+	
+	// Adding the norm
+	writeFile << "Norms are:" << endl << "\t" << "-One norm: " << norms[0] << endl << "\t" << "-Two norm: " << norms[1] << endl << "\t" << "-Uniform norm: " << norms[2] << endl;
+	writeFile << "Numerical \t\t\t\t\t Analytical" << endl << "x " << "t=0s " << "t=0.1s " << "t=0.2s " << "t=0.3s " << "t=0.4s " << "t=0.5s" << endl;
+	
+	// Printing in the file fileName
+	for (int i = 0; i < xVector.size(); i++)
+	{
+		writeFile << fixed << setprecision(6) << xVector[i] << ", ";
+		for (int n = 0; n < 6; n++)
+		{
+			writeFile << fixed << setprecision(6) << NumericalResult[i][timePrintIndex[n]] << ", ";
+		}
+
+		for (int n = 0; n < 6; n++)
+		{
+			writeFile << fixed << setprecision(6) << AnalyticalResult[i][timePrintIndex[n]];
+			if (n != this->getVectorT().size() - 1)
+			{
+				writeFile << ", ";
+			}
+		}
+
+		writeFile << endl;
+	}
+	writeFile.close();
+	cout << "The file " << fileName << " as been created in the project folder" << endl;
+}
+
 //Getter function
 
 vector<double>& Scheme::getVectorX()
@@ -133,11 +176,6 @@ vector<double>& Scheme::getVectorT()
 	return tVector;
 }
 
-Matrix& Scheme::getAnalytical()
-{
-	return AnalyticalResult;
-}
-
 Matrix& Scheme::getNumerical()
 {
 	return NumericalResult;
@@ -148,14 +186,4 @@ double Scheme::getA()
 	return u * deltaT / deltaX;
 }
 
-
-double* Scheme::getNorms()
-{
-	return this->norms;
-}
-
-double Scheme::getTimeMax()
-{
-	return this->timeMax;
-}
 

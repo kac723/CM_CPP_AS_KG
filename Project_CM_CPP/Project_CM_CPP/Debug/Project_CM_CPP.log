@@ -1,5 +1,11 @@
 ﻿  Explicit.cpp
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(116): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(116): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
-d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\explicit.cpp(130): warning C4018: '<' : incompatibilité signed/unsigned
+  Implicit.cpp
+  Scheme.cpp
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(21): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(22): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(129): warning C4838: la conversion de 'double' en 'int' requiert une conversion restrictive
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(129): warning C4244: 'initialisation' : conversion de 'double' en 'int', perte possible de données
+d:\documents\a.simon\documents\github\cm_cpp_as_kg\project_cm_cpp\project_cm_cpp\scheme.cpp(144): warning C4018: '<' : incompatibilité signed/unsigned
+  main.cpp
+  Génération de code en cours...
   Project_CM_CPP.vcxproj -> D:\Documents\a.simon\Documents\GitHub\CM_CPP_AS_KG\Project_CM_CPP\Debug\Project_CM_CPP.exe
