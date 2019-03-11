@@ -2,6 +2,7 @@
 Assignment project for CM and CPP by Axel Simon and Kacper Grajcar
 
 Task was to develop software which will solve first order wave equation using numerical methods like explicit and implict schemes.
+
 Step to do in Computational Method:
 1) Correct analytical solution
 2) Test  explicit Upwind schemes and lax schemes and compare with analytical
